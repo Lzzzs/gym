@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -14,8 +15,10 @@
     "noEmit": true,
     "paths": {
       "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-    }
+      "components": ["src/components"],
+      "network": ["src/network"],
+      "store": ["src/store"],
+    }, 
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
