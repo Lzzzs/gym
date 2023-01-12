@@ -1,0 +1,13 @@
+lockfileVersion: 5.4
+
+specifiers:
+  cz-git: ^1.4.1
+
+devDependencies:
+  cz-git: 1.4.1
+
+packages:
+
+  /cz-git/1.4.1:
+    resolution: {integrity: sha512-EOtuitcnfxde8t3NNTKh2YxEJhLXGiVlKSVaZipK3+DVo135rEUifAfqxkslM66Nf6ZO7a+3JR+XAOLhMXUAjQ==}
+    dev: true
