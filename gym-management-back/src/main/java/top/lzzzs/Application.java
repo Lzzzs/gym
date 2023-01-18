@@ -1,13 +1,15 @@
-package lzzzs.top.gymmanagementback;
+package top.lzzzs;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GymManagementBackApplication {
+@MapperScan("top.lzzzs.mapper")
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(GymManagementBackApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }

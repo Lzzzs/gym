@@ -1,4 +1,4 @@
-package lzzzs.top.gymmanagementback;
+package top.lzzzs.gymmanagementback;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -6,8 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class GymManagementBackApplicationTests {
 
+
     @Test
-    void contextLoads() {
+    public void testSelect() {
+
     }
+
 
 }
