@@ -1,15 +1,13 @@
 import { createApp } from 'vue';
-import App from './App.vue';
 import { installStore } from '@/store';
+import { installRouter } from '@/router';
 
 import 'normalize.css';
+import App from './App.vue';
 
-function install() {
-  const app = createApp(App);
+const app = createApp(App);
 
-  installStore(app);
+installStore(app);
+installRouter(app);
 
-  app.mount('#app');
-}
-
-install();
+app.mount('#app');
