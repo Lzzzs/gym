@@ -42,7 +42,7 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
         try {
             JwtUtil.isExpiration(token);
         } catch (ExpiredJwtException e) {
-            throw new CustomException(Rcode.PERMISSION_TOKEN_EXPIRED);
+            throw new CustomException(Rcode.PERMISSION_EXPIRE);
         }
 
         return true;

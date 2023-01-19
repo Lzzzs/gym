@@ -15,6 +15,8 @@ export default defineConfig({
       components: resolveAlias('./src/components'),
       network: resolveAlias('./src/network'),
       store: resolveAlias('./src/store'),
+      pages: resolveAlias('./src/pages'),
+      hooks: resolveAlias('./src/hooks'),
     },
   },
   plugins: [vue()],

@@ -18,6 +18,8 @@
       "components": ["src/components"],
       "network": ["src/network"],
       "store": ["src/store"],
+      "pages": ["src/pages"],
+      "hooks": ["src/hooks"]
     }, 
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
