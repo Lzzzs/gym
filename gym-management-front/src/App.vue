@@ -1,5 +1,6 @@
 <template>
   {{ counter.count }} <button @click="handleIncrement">+</button>
+  <RouterView />
 </template>
 
 <script setup lang="ts">

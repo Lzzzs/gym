@@ -1,10 +1,21 @@
 package top.lzzzs.common;
 
 import java.io.Serializable;
+
 public class R implements Serializable {
     private int code;
     private String message;
     private Object data;
+
+    public static R set(Rcode rcode) {
+        R r = new R();
+
+        r.setCode(rcode.code());
+        r.setMessage(rcode.message());
+        r.setData(null);
+
+        return r;
+    }
 
     public static R set(int code, String message) {
         R r = new R();
@@ -28,18 +39,19 @@ public class R implements Serializable {
 
 
     public static R success(String message, Object data) {
-        return R.set(200, message, data);
+        return R.set(Rcode.SUCCESS.code(), message, data);
     }
 
     public static R success(Object data) {
-        return R.set(200, "success", data);
+        return R.set(Rcode.SUCCESS.code(), Rcode.SUCCESS.message(), data);
     }
 
     public static R error() {
-        return R.error("error");
+        return R.set(Rcode.SYSTEM_INNER_ERROR);
     }
-    public static R error(String message) {
-        return R.set(500, message, null);
+
+    public static R error(Rcode rcode) {
+        return R.set(rcode);
     }
 
 

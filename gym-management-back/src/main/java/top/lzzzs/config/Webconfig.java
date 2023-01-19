@@ -17,11 +17,11 @@ public class Webconfig implements WebMvcConfigurer {
      *
      * @param registry
      */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        // 拦截路径可自行配置多个 可用 ，分隔开
-        registry.addInterceptor(new JwtInterceptor()).addPathPatterns("/**").excludePathPatterns("/static/**");
-    }
+    // @Override
+    // public void addInterceptors(InterceptorRegistry registry) {
+    //     // 拦截路径可自行配置多个 可用 ，分隔开
+    //     registry.addInterceptor(new JwtInterceptor()).addPathPatterns("/**").excludePathPatterns("/static/**");
+    // }
 
     // @Override
     // public void addResourceHandlers(ResourceHandlerRegistry registry) {
