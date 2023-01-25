@@ -1,7 +1,13 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
+
 import UnoCSS from 'unocss/vite';
+import { presetUno, presetMini } from 'unocss';
+
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 
@@ -20,5 +26,19 @@ export default defineConfig({
       hooks: resolveAlias('./src/hooks'),
     },
   },
-  plugins: [vue(), UnoCSS()],
+  plugins: [
+    vue(),
+    UnoCSS({
+      presets: [presetUno(), presetMini()],
+      shortcuts: {
+        flexc: 'flex justify-center items-center',
+      },
+    }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),
+  ],
 });
