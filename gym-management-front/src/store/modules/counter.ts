@@ -10,3 +10,9 @@ export const useCounterStore = defineStore('counter', {
     },
   },
 });
+
+// import { useCounterStore } from '@/store/modules/counter';
+// const counter = useCounterStore();
+// const handleIncrement = () => {
+//   counter.incr();
+// };
