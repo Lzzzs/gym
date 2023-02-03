@@ -1,9 +1,5 @@
 import instance from '../index';
-
-interface IData {
-  a: number;
-  b: string;
-}
+import { IData } from './type';
 
 const test = instance<IData>({
   method: 'get',

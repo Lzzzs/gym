@@ -4,7 +4,7 @@
   "description": "健身房管理系统",
   "main": "index.js",
   "scripts": {
-    "commit": "git-cz"
+    "commit": "git add . && git-cz"
   },
   "author": "",
   "license": "ISC",
