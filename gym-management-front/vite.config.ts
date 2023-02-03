@@ -30,15 +30,27 @@ export default defineConfig({
     vue(),
     UnoCSS({
       presets: [presetUno(), presetMini()],
-      shortcuts: {
-        flexc: 'flex justify-center items-center',
-      },
+      shortcuts: [
+        {
+          flexc: 'flex justify-center items-center',
+          b: 'border border-solid ',
+        },
+        // [
+        //   /^border-(.*)$/,
+        //   ([, c]) =>
+        //     `bg-${c}-400 text-${c}-100 border border-solid border-color-black`,
+        // ],
+      ],
     }),
     AutoImport({
+      imports: ['vue', '@vueuse/core'],
       resolvers: [ElementPlusResolver()],
+      vueTemplate: true,
+      dts: true,
     }),
     Components({
       resolvers: [ElementPlusResolver()],
+      dts: true,
     }),
   ],
 });
