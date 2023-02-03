@@ -2,7 +2,7 @@
   <div class="h-screen">
     <div class="login-page flexc h-screen">
       <div
-        class="login-form p-10 border border-solid border-color-black border-rd-4 max-w-xl"
+        class="login-form p-10 b border-black border-rd-4 max-w-xl border-base"
       >
         <el-form :model="loginForm" label-width="100px" label-position="left">
           <el-form-item label="用户名">
@@ -16,13 +16,13 @@
           >
           <el-radio-group
             v-model="loginForm.role"
-            class="flex justify-center mt"
+            class="flex justify-between mt"
             style="width: 100%"
           >
             <el-radio label="2">用户</el-radio>
             <el-radio label="1">管理员</el-radio>
           </el-radio-group>
-          <div class="flex justify-between pl-3 pr-3 mt">
+          <div class="flex justify-between mt">
             <el-link :underline="false">忘记密码</el-link>
             <el-link :underline="false">注册</el-link>
           </div>
