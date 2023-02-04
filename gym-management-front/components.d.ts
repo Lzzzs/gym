@@ -16,6 +16,6 @@ declare module '@vue/runtime-core' {
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    UserPageHeader: typeof import('./src/components/user-page-header.vue')['default']
+    UserPageHeader: typeof import('./src/components/user-page-header/index.vue')['default']
   }
 }

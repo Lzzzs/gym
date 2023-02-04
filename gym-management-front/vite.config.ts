@@ -43,7 +43,7 @@ export default defineConfig({
       ],
     }),
     AutoImport({
-      imports: ['vue', '@vueuse/core'],
+      imports: ['vue', '@vueuse/core', 'vue-router'],
       resolvers: [ElementPlusResolver()],
       vueTemplate: true,
       dts: true,

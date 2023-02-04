@@ -5,6 +5,7 @@ import { installRouter } from '@/router';
 import 'normalize.css';
 import 'nprogress/nprogress.css';
 import 'uno.css';
+import '@/assets/css/global.less';
 
 import App from './App.vue';
 
