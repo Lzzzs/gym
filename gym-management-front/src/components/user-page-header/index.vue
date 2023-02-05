@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="user-page-header color-white flex items-center justify-between pl-32 pr-32"
-  >
+  <div class="user-page-header flex items-center justify-between pl-32 pr-32">
     <div>logo</div>
     <ul class="items flex">
       <li
@@ -29,7 +27,7 @@ const toPath = (to: string) => {
 <style lang="less" scoped>
 .user-page-header {
   min-width: 1024px;
-  background-color: #4338ca;
+  background-color: #a3a2a3;
   height: 60px;
 }
 </style>

@@ -4,14 +4,23 @@
       <div
         class="login-form p-10 b border-black border-rd-4 max-w-xl border-base"
       >
-        <el-form :model="loginForm" label-width="100px" label-position="left">
-          <el-form-item label="用户名">
+        <el-form
+          :model="loginForm"
+          label-width="100px"
+          label-position="left"
+          :rules="rules"
+          ref="loginFormRef"
+        >
+          <el-form-item label="用户名" prop="username">
             <el-input v-model="loginForm.username" />
           </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="loginForm.password" />
+          <el-form-item label="密码" prop="password" class="mt-6">
+            <el-input v-model="loginForm.password" type="password" />
           </el-form-item>
-          <el-button @click="handleLogin" type="primary" class="login-btn"
+          <el-button
+            @click="handleLogin(loginFormRef)"
+            type="primary"
+            class="login-btn mt-3"
             >登录</el-button
           >
           <el-radio-group
@@ -33,22 +42,44 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
-interface ILoginForm {
-  username: string;
-  password: string;
-  // 1 管理员 2 用户
-  role: 1 | 2;
-}
+import { FormRules, FormInstance, ElMessage } from 'element-plus';
+import { fetchLogin } from '@/network/login/index';
+import type { ILoginForm } from '@/types/login/index';
+
+const loginFormRef = ref<FormInstance>();
 
 const loginForm = reactive<ILoginForm>({
   username: '',
   password: '',
-  role: 2,
+  role: '',
 });
 
-const handleLogin = () => {
-  console.log('login', loginForm);
+const rules = reactive<FormRules>({
+  username: [
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 5, message: '用户名的长度不能少于5位', trigger: 'change' },
+  ],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  role: [
+    {
+      required: true,
+      message: '请选择身份',
+      trigger: 'change',
+    },
+  ],
+});
+
+const handleLogin = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  await formEl.validate((valid) => {
+    if (valid) {
+      loginForm.role ? successFetch() : ElMessage.warning('还未选择身份');
+    }
+  });
+};
+
+const successFetch = () => {
+  fetchLogin(loginForm);
 };
 </script>
 

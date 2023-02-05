@@ -10,7 +10,7 @@
 import UserPageHeader from '@/components/user-page-header/index.vue';
 const router = useRouter();
 
-router.push('/subscribe');
+router.push('/login');
 </script>
 
 <style lang="less" scoped></style>
