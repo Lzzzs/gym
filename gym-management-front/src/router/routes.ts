@@ -1,36 +1,57 @@
 import { RouteRecordRaw } from 'vue-router';
 
+export type UserPathType =
+  | 'subscribe'
+  | 'course'
+  | 'consult'
+  | 'plan'
+  | 'actionLibrary'
+  | 'personal';
+
+export const userPath: { [k in UserPathType]: string } = {
+  subscribe: '/subscribe',
+  course: '/course',
+  consult: '/consult',
+  plan: '/plan',
+  actionLibrary: '/actionLibrary',
+  personal: '/personal',
+};
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     component: () => import('@/pages/login/login.vue'),
   },
   {
+    path: '/register',
+    component: () => import('@/pages/login/register.vue'),
+  },
+  {
     path: '/',
     component: () => import('@/pages/user/index.vue'),
     children: [
       {
-        path: '/subscribe',
+        path: userPath.subscribe,
         component: () => import('@/pages/user/c-pages/subscribe/index.vue'),
       },
       {
-        path: '/course',
+        path: userPath.course,
         component: () => import('@/pages/user/c-pages/course/index.vue'),
       },
       {
-        path: '/consult',
+        path: userPath.consult,
         component: () => import('@/pages/user/c-pages/consult/index.vue'),
       },
       {
-        path: '/plan',
+        path: userPath.plan,
         component: () => import('@/pages/user/c-pages/plan/index.vue'),
       },
       {
-        path: '/action-library',
+        path: userPath.actionLibrary,
         component: () => import('@/pages/user/c-pages/actionLibrary/index.vue'),
       },
       {
-        path: '/personal',
+        path: userPath.personal,
         component: () => import('@/pages/user/c-pages/personal/index.vue'),
       },
     ],

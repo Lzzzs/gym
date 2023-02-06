@@ -1,23 +1,27 @@
-import { instance } from './index';
+import instance from './index';
 import NProgress from 'nprogress';
 import router from '@/router';
 import codeMap from './ResultCode';
 import { isJSON } from '@/utils/jsonUtil';
 import type { AxiosResponse } from 'axios';
+import { ElMessage } from 'element-plus';
+import { fetchRefreshToken } from './login/index';
+import { generateAuthorization } from '@/utils/tokenUtils';
 
 const successCode = 6666;
 
 let isRefreshing = true;
 let subscribers: (() => void)[] = [];
 
-instance.interceptors.response.use(responseSuccessHandler, () => {});
-
-function responseSuccessHandler(res: AxiosResponse): Promise<AxiosResponse> {
+export function responseSuccessHandler(
+  res: AxiosResponse
+): Promise<AxiosResponse> {
   // 关闭进度条
   NProgress.done();
 
   const code = res.data.code;
   const message = res.data.message;
+  console.log(message, code);
 
   // 错误信息都从接口获取
   if (code !== successCode) {
@@ -30,7 +34,7 @@ function responseSuccessHandler(res: AxiosResponse): Promise<AxiosResponse> {
     if (codeMap.has(code)) {
       // [errMessage, to?]
       const [errMessage, to] = codeMap.get(code);
-      // Message.error(errMessage);
+      ElMessage.error(errMessage);
 
       // 如果需要跳转
       if (to !== '') {
@@ -46,12 +50,16 @@ function responseSuccessHandler(res: AxiosResponse): Promise<AxiosResponse> {
       return Promise.reject(errMessage);
     }
 
-    // Message.error(message);
+    ElMessage.error(message);
     // 返回reject 不进入到业务中的then函数回调中
     return Promise.reject(message);
   } else {
-    return res.data;
+    return res.data.data;
   }
+}
+
+export function responseErrorHandler(err: any) {
+  return Promise.reject(err);
 }
 
 function handleExpiredToken(res: AxiosResponse): Promise<AxiosResponse> {
@@ -69,6 +77,8 @@ function handleExpiredToken(res: AxiosResponse): Promise<AxiosResponse> {
   const retryOriginalRequest: Promise<AxiosResponse> = new Promise(
     (resolve) => {
       addSubscriber(() => {
+        // 更新最新的token，防止递归调用
+        res.config.headers.Authorization = generateAuthorization();
         resolve(instance(res.config));
       });
     }
@@ -91,16 +101,16 @@ function addSubscriber(callback: () => void) {
 
 function refreshTokenRequest(): void {
   const refreshToken = JSON.parse(localStorage.getItem('refreshToken')!);
-  const userInfo = JSON.parse(localStorage.getItem('userInfo')!);
-  // refreshTokenApi({
-  //   loginInfo: {
-  //     userId: userInfo.userid,
-  //   },
-  //   refreshToken: refreshToken,
-  // }).then((res) => {
-  //   localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
-  //   localStorage.setItem('token', JSON.stringify(res.data.token));
-  //   onAccessTokenFetched();
-  //   isRefreshing = true;
-  // });
+  const userInfo = JSON.parse(localStorage.getItem('user')!);
+  fetchRefreshToken({
+    loginInfo: {
+      username: userInfo.username,
+    },
+    refreshToken,
+  }).then(({ refreshToken, token }) => {
+    localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
+    localStorage.setItem('token', JSON.stringify(token));
+    onAccessTokenFetched();
+    isRefreshing = true;
+  });
 }

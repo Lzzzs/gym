@@ -16,6 +16,15 @@ function resolveAlias(target: string): string {
 }
 
 export default defineConfig({
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8888',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': resolveAlias('./src'),
@@ -43,7 +52,7 @@ export default defineConfig({
       ],
     }),
     AutoImport({
-      imports: ['vue', '@vueuse/core'],
+      imports: ['vue', '@vueuse/core', 'vue-router'],
       resolvers: [ElementPlusResolver()],
       vueTemplate: true,
       dts: true,
