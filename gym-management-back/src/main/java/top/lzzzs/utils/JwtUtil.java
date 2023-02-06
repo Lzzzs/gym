@@ -13,7 +13,7 @@ public class JwtUtil {
 
     // 密钥
     private static String secret = "liangzhensheng";
-    // 过期时间 单位ms 十分钟
+    // 过期时间 单位ms 十分钟 600000
     private static long expiration = 600000;
 
     // refresh token过期时间 十天
@@ -36,14 +36,14 @@ public class JwtUtil {
     /**
      * 生成jwt
      *
-     * @param user
+     * @param LoginDto
      * @return
      */
     public static String createToken(LoginDto userLoginInfo, Boolean refresh) {
         long expirationTime = refresh ? reExpiration : expiration;
 
         JwtBuilder jwtBuilder = Jwts.builder()
-                .setSubject(userLoginInfo.getUserId())
+                .setSubject(userLoginInfo.getUsername())
                 .setIssuedAt(new Date())// 登录时间
                 .signWith(SignatureAlgorithm.HS256, secret).setExpiration(new Date(new
                         Date().getTime() + expirationTime));

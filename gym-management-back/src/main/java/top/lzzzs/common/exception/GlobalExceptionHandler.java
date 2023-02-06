@@ -27,7 +27,6 @@ public class GlobalExceptionHandler {
      * 处理自定义异常
      */
     @ExceptionHandler(CustomException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R handleException(CustomException e) {
         // 打印异常信息
         log.error("### 异常信息:{} ###", e.getMessage());

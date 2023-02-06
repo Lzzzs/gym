@@ -33,7 +33,7 @@
           </el-radio-group>
           <div class="flex justify-between mt">
             <el-link :underline="false">忘记密码</el-link>
-            <el-link :underline="false">注册</el-link>
+            <el-link :underline="false" href="/register">注册</el-link>
           </div>
         </el-form>
       </div>
@@ -79,7 +79,11 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
 };
 
 const successFetch = () => {
-  fetchLogin(loginForm);
+  fetchLogin(loginForm).then(({ token, refreshToken, user }) => {
+    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
+    localStorage.setItem('user', JSON.stringify(user));
+  });
 };
 </script>
 
