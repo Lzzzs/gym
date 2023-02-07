@@ -13,6 +13,7 @@ import top.lzzzs.utils.JwtUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 @Slf4j
 public class JwtInterceptor extends HandlerInterceptorAdapter {
@@ -38,10 +39,16 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
         // 获取token
         final String token = authHeader.substring(7);
 
+
         // 验证token是否过期，手动抛出异常
         try {
             JwtUtil.isExpiration(token);
         } catch (ExpiredJwtException e) {
+            if (Objects.equals(request.getRequestURI(), "/user/refresh-token")) {
+                // refresh-token过期，抛出异常对应前端可以跳转login页面
+                throw new CustomException(Rcode.USER_NOT_LOGGED_IN);
+            }
+
             throw new CustomException(Rcode.PERMISSION_EXPIRE);
         }
 

@@ -14,10 +14,10 @@ public class JwtUtil {
     // 密钥
     private static String secret = "liangzhensheng";
     // 过期时间 单位ms 十分钟 600000
-    private static long expiration = 600000;
+    private static long expiration = 10000;
 
-    // refresh token过期时间 十天
-    private static long reExpiration = 864000000;
+    // refresh token过期时间 十天 864000000
+    private static long reExpiration = 15000;
 
 
     /**

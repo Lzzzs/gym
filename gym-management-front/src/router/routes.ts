@@ -29,30 +29,51 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('@/pages/user/index.vue'),
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: userPath.subscribe,
         component: () => import('@/pages/user/c-pages/subscribe/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: userPath.course,
         component: () => import('@/pages/user/c-pages/course/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: userPath.consult,
         component: () => import('@/pages/user/c-pages/consult/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: userPath.plan,
         component: () => import('@/pages/user/c-pages/plan/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: userPath.actionLibrary,
         component: () => import('@/pages/user/c-pages/actionLibrary/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: userPath.personal,
         component: () => import('@/pages/user/c-pages/personal/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
       },
     ],
   },

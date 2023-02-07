@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import top.lzzzs.common.R;
+import top.lzzzs.common.Rcode;
 
 import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
@@ -43,7 +44,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ExpiredJwtException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     R handleExpiredJwtException(ExpiredJwtException e) {
-        return R.set(HttpStatus.UNAUTHORIZED.value(), "token过期", e.getMessage());
+        return R.error(Rcode.USER_NOT_LOGGED_IN);
     }
 
 
