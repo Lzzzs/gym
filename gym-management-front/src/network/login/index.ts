@@ -33,9 +33,3 @@ export const fetchRefreshToken = (refreshTokenInfo: IRefreshToken) => {
     },
   });
 };
-
-export const test = () => {
-  return instance({
-    url: 'test',
-  });
-};

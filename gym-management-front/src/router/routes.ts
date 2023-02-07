@@ -32,6 +32,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       requiresAuth: true,
     },
+    redirect: userPath.subscribe,
     children: [
       {
         path: userPath.subscribe,

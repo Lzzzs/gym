@@ -45,8 +45,10 @@
 import { FormRules, FormInstance, ElMessage } from 'element-plus';
 import { fetchLogin } from '@/network/login/index';
 import type { ILoginForm } from '@/types/login/index';
+import { login } from '@/utils/loginUtil';
 
 const loginFormRef = ref<FormInstance>();
+const router = useRouter();
 
 const loginForm = reactive<ILoginForm>({
   username: '',
@@ -80,9 +82,8 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
 
 const successFetch = () => {
   fetchLogin(loginForm).then(({ token, refreshToken, user }) => {
-    localStorage.setItem('token', JSON.stringify(token));
-    localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
-    localStorage.setItem('user', JSON.stringify(user));
+    login(token, refreshToken, user);
+    router.push('/');
   });
 };
 </script>

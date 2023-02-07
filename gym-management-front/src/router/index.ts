@@ -22,15 +22,18 @@ router.beforeEach((to, from, next) => {
   if ((to.fullPath == '/login' || to.fullPath == '/register') && loginStatus) {
     ElMessage.warning('已登录，请勿重复登录与注册');
     next(from.fullPath);
+    return;
   }
 
   // 判断用户进入的页面是否需要权限，未登录跳转登录页面，已登录放行用户
   if (to.meta.requiresAuth) {
     if (loginStatus) {
       next();
+      return;
     } else {
       ElMessage.warning('请先登录');
       next('/login');
+      return;
     }
   }
 
