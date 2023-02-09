@@ -1,7 +1,12 @@
 <template>
   <div class="card box-border pl-5 pr-5">
     <div class="inner b b-bluegray rounded p-3">
-      <el-image :src="cardInfo!.imgUrl" class="card-img" fit="cover" />
+      <el-image
+        :src="cardInfo!.imgUrl"
+        class="card-img"
+        fit="cover"
+        @click="viewDetail"
+      />
 
       <ul
         class="card-detail mt-5 mb-5"
@@ -29,10 +34,14 @@ const { btnText, cardInfo } = defineProps({
 
 const emit = defineEmits<{
   (event: 'btnClick', id: number): void;
+  (event: 'imgClick'): void;
 }>();
 
 const btnClick = (id: number) => {
   emit('btnClick', id);
+};
+const viewDetail = () => {
+  emit('imgClick');
 };
 </script>
 

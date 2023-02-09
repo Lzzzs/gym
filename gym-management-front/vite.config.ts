@@ -1,15 +1,12 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
-
-import UnoCSS from 'unocss/vite';
-import { presetUno, presetMini } from 'unocss';
-
+import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
-// https://vitejs.dev/config/
+// config address -> https://vitejs.dev/config/
 
 function resolveAlias(target: string): string {
   return resolve(__dirname, target);
@@ -37,20 +34,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    UnoCSS({
-      presets: [presetUno(), presetMini()],
-      shortcuts: [
-        {
-          flexc: 'flex justify-center items-center',
-          b: 'border border-solid ',
-        },
-        // [
-        //   /^border-(.*)$/,
-        //   ([, c]) =>
-        //     `bg-${c}-400 text-${c}-100 border border-solid border-color-black`,
-        // ],
-      ],
-    }),
+    Unocss(),
     AutoImport({
       imports: ['vue', '@vueuse/core', 'vue-router'],
       resolvers: [ElementPlusResolver()],

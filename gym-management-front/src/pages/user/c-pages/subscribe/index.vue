@@ -1,11 +1,14 @@
 <template>
   <div class="ml-32 mr-32">
     <user-page-title title="健身房预约"></user-page-title>
+
     <Cards
       btn-text="预约此场馆"
       :card-infos="cardInfos"
       @btn-click="handleBtnClick"
     ></Cards>
+
+    <user-page-pagination :total="5"></user-page-pagination>
   </div>
 </template>
 
