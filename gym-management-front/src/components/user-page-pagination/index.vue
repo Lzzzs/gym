@@ -13,18 +13,22 @@
 </template>
 
 <script setup lang="ts">
-import { login } from '@/utils/loginUtil';
+import { emitChangeFn } from 'element-plus';
 
 const { total } = defineProps({
   total: Number,
 });
 
 const pageSize = 4;
-let currentPage = 1;
+let currentPage = ref(1);
+
+const emits = defineEmits<{
+  (event: 'page-change', curPage: number): void;
+}>();
 
 const pageChange = (page: number) => {
-  console.log(page);
-  currentPage = page;
+  currentPage.value = page;
+  emits('page-change', page);
 };
 </script>
 

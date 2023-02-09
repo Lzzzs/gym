@@ -8,7 +8,10 @@
       @btn-click="handleBtnClick"
     ></Cards>
 
-    <user-page-pagination :total="5"></user-page-pagination>
+    <user-page-pagination
+      :total="5"
+      @page-change="handlePageChange"
+    ></user-page-pagination>
   </div>
 </template>
 
@@ -18,6 +21,9 @@ import { ICardInfo } from '@/types/user/index';
 
 const handleBtnClick = (id: number) => {
   console.log(id);
+};
+const handlePageChange = (page: number) => {
+  console.log(page);
 };
 
 const cardInfos: ICardInfo[] = [
