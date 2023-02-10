@@ -1,7 +1,5 @@
 <template>
-  <div class="ml-32 mr-32">
-    <user-page-title title="健身房预约"></user-page-title>
-
+  <user-page-layout title="健身房预约">
     <Cards
       btn-text="预约此场馆"
       :card-infos="cardInfos"
@@ -12,7 +10,7 @@
       :total="5"
       @page-change="handlePageChange"
     ></user-page-pagination>
-  </div>
+  </user-page-layout>
 </template>
 
 <script setup lang="ts">

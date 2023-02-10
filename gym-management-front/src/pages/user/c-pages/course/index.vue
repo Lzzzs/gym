@@ -1,7 +1,5 @@
 <template>
-  <div class="ml-32 mr-32">
-    <user-page-title title="线上课程"></user-page-title>
-
+  <user-page-layout title="线上课程">
     <Cards
       btn-text="预约此课程"
       :card-infos="cardInfos"
@@ -12,7 +10,7 @@
       :total="5"
       @page-change="handlePageChange"
     ></user-page-pagination>
-  </div>
+  </user-page-layout>
 </template>
 
 <script setup lang="ts">
