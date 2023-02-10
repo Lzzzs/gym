@@ -7,6 +7,7 @@ import type { AxiosResponse } from 'axios';
 import { ElMessage } from 'element-plus';
 import { fetchRefreshToken } from './login/index';
 import { generateAuthorization } from '@/utils/tokenUtils';
+import { logout } from '@/utils/loginUtil';
 
 const successCode = 6666;
 
@@ -43,7 +44,7 @@ export function responseSuccessHandler(
            * 跳转前 先把localStorage中关于用户的信息先删除
            * 因为在router.beforeEach拦截了关于用户有localStorage的信息无法跳转登录和注册页面
            */
-          // logout();
+          logout();
         }
         router.push(to);
       }
