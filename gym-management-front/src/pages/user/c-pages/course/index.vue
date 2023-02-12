@@ -1,5 +1,5 @@
 <template>
-  <user-page-layout title="线上课程">
+  <user-page-layout title="课程查询与预约">
     <Cards
       btn-text="预约此课程"
       :card-infos="cardInfos"

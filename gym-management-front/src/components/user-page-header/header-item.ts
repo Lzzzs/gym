@@ -10,7 +10,7 @@ export const headerItems: IHeaderItems[] = [
     to: 'subscribe',
   },
   {
-    name: '线上课程',
+    name: '课程查询与预约',
     to: 'course',
   },
   {
