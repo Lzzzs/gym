@@ -26,6 +26,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UserPageHeader: typeof import('./src/components/user-page-header/index.vue')['default']
+    UserPageLayout: typeof import('./src/components/user-page-layout.vue')['default']
     UserPagePagination: typeof import('./src/components/user-page-pagination/index.vue')['default']
     UserPageTitle: typeof import('./src/components/user-page-title.vue')['default']
   }

@@ -8,10 +8,7 @@
         @click="viewDetail"
       />
 
-      <ul
-        class="card-detail mt-5 mb-5"
-        v-if="cardInfo!.detailList.length !== 0"
-      >
+      <ul class="card-detail mt-5 mb-5" v-if="cardInfo?.detailList">
         <li v-for="list in cardInfo!.detailList">
           {{ list.name }}: {{ list.value }}
         </li>
@@ -53,6 +50,7 @@ const viewDetail = () => {
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
     .card-img {
       height: 200px;
+      cursor: pointer;
     }
 
     .card-detail {
