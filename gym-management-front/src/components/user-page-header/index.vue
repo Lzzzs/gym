@@ -38,8 +38,12 @@ const toPath = (to: UserPathType) => {
   height: 60px;
 
   .items {
+    li {
+      color: #525252;
+    }
     .active {
-      color: red;
+      color: #000;
+      font-weight: bold;
     }
   }
 }
