@@ -114,14 +114,11 @@ public class UsersController {
 
     @PutMapping("/updateUserById")
     public R updateUserById(@RequestBody Users user) {
-
         // 填充password
         Users tmp = usersService.getById(user.getId());
         user.setPassword(tmp.getPassword());
 
-        boolean b = usersService.updateById(user);
-
-        return R.success(b);
+        return R.success(usersService.updateById(user));
     }
 
 
