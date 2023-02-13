@@ -10,7 +10,7 @@
         ref="personalFormRef"
         v-show="isShowPersonalInfo"
       >
-        <el-form-item label="姓名" prop="name">
+        <el-form-item label="姓名" prop="name" :required="true">
           <el-input v-model="personalForm.name" />
         </el-form-item>
         <el-form-item label="年龄" prop="age">
@@ -37,13 +37,13 @@
         ref="passwordFormRef"
         v-show="!isShowPersonalInfo"
       >
-        <el-form-item label="原密码" prop="oldPassword">
+        <el-form-item label="原密码" prop="oldPassword" :required="true">
           <el-input v-model="passwordForm.oldPassword" type="password" />
         </el-form-item>
-        <el-form-item label="新密码" prop="newPassword">
+        <el-form-item label="新密码" prop="newPassword" :required="true">
           <el-input v-model="passwordForm.newPassword" type="password" />
         </el-form-item>
-        <el-form-item label="确认密码" prop="confirmPassword">
+        <el-form-item label="确认密码" prop="confirmPassword" :required="true">
           <el-input v-model="passwordForm.confirmPassword" type="password" />
         </el-form-item>
         <el-form-item class="mt-5">
@@ -56,22 +56,20 @@
 </template>
 
 <script setup lang="ts">
-import { FormInstance } from 'element-plus';
-import {
-  checkName,
-  checkPhone,
-  checkAge,
-  checkOldPassword,
-  checkNewPassword,
-  checkCfPassword,
-} from './validator';
+import { ElMessage, FormInstance } from 'element-plus';
+import validator from './validator';
+import { copy, emptyObj } from '@/utils/dataUtil';
+import useUser from '@/hooks/useUser';
+import { updateUserById, updatePasswordById } from '@/network/user/index';
+import { IPersonalForm } from './type';
+import { IUpdatePassword } from '@/types/user/index';
 
 const isShowPersonalInfo = ref(true);
 
 const personalFormRef = ref<FormInstance>();
 const passwordFormRef = ref<FormInstance>();
 
-const personalForm = reactive({
+const personalForm = reactive<IPersonalForm>({
   name: '',
   age: null,
   phone: null,
@@ -84,22 +82,38 @@ const passwordForm = reactive({
 });
 
 const personalRules = reactive({
-  name: [{ validator: checkName, trigger: 'change' }],
-  age: [{ validator: checkAge, trigger: 'change' }],
-  phone: [{ validator: checkPhone, trigger: 'change' }],
+  name: [{ validator: validator.checkName, trigger: 'change' }],
+  age: [{ validator: validator.checkAge, trigger: 'change' }],
+  phone: [{ validator: validator.checkPhone, trigger: 'change' }],
 });
 const passwordRules = reactive({
-  oldPassword: [{ validator: checkOldPassword, trigger: 'blur' }],
-  newPassword: [{ validator: checkNewPassword, trigger: 'blur' }],
-  confirmPassword: [{ validator: checkCfPassword, trigger: 'blur' }],
+  oldPassword: [{ validator: validator.checkOldPassword, trigger: 'blur' }],
+  newPassword: [{ validator: validator.checkNewPassword, trigger: 'blur' }],
+  confirmPassword: [{ validator: validator.checkCfPassword, trigger: 'blur' }],
 });
+
+onMounted(() => {
+  getCurrentUser();
+});
+const getCurrentUser = () => {
+  const currentUser = useUser();
+  if (!currentUser) return;
+  copy(personalForm, currentUser);
+};
 
 const savePersonal = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
 
   await formEl.validate((valid) => {
     if (valid) {
-      console.log('savePersonal', personalForm);
+      const currentUser = useUser();
+      if (!currentUser) return;
+      copy(currentUser, personalForm);
+      updateUserById(currentUser).then(() => {
+        // 更新
+        localStorage.setItem('user', JSON.stringify(currentUser));
+        ElMessage.success('保存成功');
+      });
     }
   });
 };
@@ -108,7 +122,18 @@ const savePasswords = async (formEl: FormInstance | undefined) => {
 
   await formEl.validate((valid) => {
     if (valid) {
-      console.log('savePasswords', passwordForm);
+      const currentUser = useUser();
+      if (!currentUser) return;
+      const passwordInfo: IUpdatePassword = {
+        id: currentUser.id,
+        oldPassword: passwordForm.oldPassword,
+        newPassword: passwordForm.newPassword,
+      };
+
+      updatePasswordById(passwordInfo).then(() => {
+        ElMessage.success('修改成功');
+        emptyObj(passwordForm);
+      });
     }
   });
 };

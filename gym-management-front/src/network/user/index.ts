@@ -1,7 +1,20 @@
 import instance from '../index';
-import { IData } from './type';
+import { IUser, IUpdatePassword } from '@/types/user/index';
 
-const test = instance<IData>({
-  method: 'get',
-  url: '/data',
-});
+const baseURl = '/user';
+
+export const updateUserById = (userInfo: IUser) => {
+  return instance({
+    method: 'put',
+    url: `${baseURl}/updateUserById`,
+    data: userInfo,
+  });
+};
+
+export const updatePasswordById = (passwordInfo: IUpdatePassword) => {
+  return instance({
+    method: 'put',
+    url: `${baseURl}/updatePasswordById`,
+    data: passwordInfo,
+  });
+};

@@ -14,15 +14,14 @@ public enum Rcode {
     USER_NOT_LOGGED_IN(20001, "用户未登录，请先登录"),
     USER_NAME_OR_PASSWORD(20002, "用户名或密码或者角色错误"),
     USER_EXIST(20003, "当前用户已经被注册"),
+    USER_OLD_PASSWORD_ERROR(20004, "用户原密码错误"),
 
     /* 系统错误：40001-49999 */
     SYSTEM_INNER_ERROR(40001, "系统繁忙，请稍后重试"),
 
     /* 数据错误：50001-599999 */
     RESULT_DATA_NONE(50001, "数据未找到"),
-
     DATA_IS_WRONG(50002, "数据有误"),
-
     DATA_ALREADY_EXISTED(50003, "数据已存在"),
 
     /* 接口错误：60001-69999 */

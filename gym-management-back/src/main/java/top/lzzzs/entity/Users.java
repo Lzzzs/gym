@@ -25,7 +25,6 @@ public class Users implements Serializable {
      * 用户主键
      */
     @TableId(value = "id", type = IdType.AUTO)
-    @JsonIgnore
     private String id;
 
     /**
@@ -49,5 +48,13 @@ public class Users implements Serializable {
      * 2 用户
      */
     private int role;
+
+    private int age;
+
+    private String phone;
+
+    private String address;
+
+    private String name;
 
 }

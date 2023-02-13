@@ -1,14 +1,12 @@
 package top.lzzzs.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 import top.lzzzs.common.R;
 import top.lzzzs.common.Rcode;
 import top.lzzzs.common.annotation.JwtIgnore;
@@ -16,6 +14,7 @@ import top.lzzzs.common.dto.LoginDto;
 import top.lzzzs.common.dto.RefreshTokenDto;
 import top.lzzzs.common.dto.RegisterDto;
 import top.lzzzs.entity.Users;
+import top.lzzzs.mapper.UsersMapper;
 import top.lzzzs.service.IUsersService;
 import top.lzzzs.service.impl.UsersServiceImpl;
 import top.lzzzs.utils.DateUtil;
@@ -86,6 +85,7 @@ public class UsersController {
         users.setCreatedTime(DateUtil.createdTime());
         // 默认只能注册用户，不能注册管理员
         users.setRole(2);
+        users.setName(registerInfo.getUsername());
 
         return R.success(usersService.save(users));
     }
@@ -112,5 +112,32 @@ public class UsersController {
 
         return R.success(res);
     }
+
+
+    @PutMapping("/updateUserById")
+    public R updateUserById(@RequestBody Users user) {
+        // 填充password
+        Users tmp = usersService.getById(user.getId());
+        user.setPassword(tmp.getPassword());
+
+        return R.success(usersService.updateById(user));
+    }
+
+    @PutMapping("/updatePasswordById")
+    public R updatePasswordById(@RequestBody Map<String, String> passwordInfo) {
+        Users user = usersService.getById(passwordInfo.get("id"));
+        String md5Pw = user.getPassword();
+        String oldMd5Pw = DigestUtils.md5DigestAsHex(passwordInfo.get("oldPassword").getBytes());
+        if (md5Pw.equals(oldMd5Pw)) {
+            UpdateWrapper<Users> wrapper = new UpdateWrapper<>();
+            wrapper.eq("id", passwordInfo.get("id")).set("password", DigestUtils.md5DigestAsHex(passwordInfo.get("newPassword").getBytes()));
+            usersService.update(null ,wrapper);
+            return R.success(null);
+        }
+
+        return R.error(Rcode.USER_OLD_PASSWORD_ERROR);
+
+    }
+
 
 }

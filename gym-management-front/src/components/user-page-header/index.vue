@@ -7,6 +7,7 @@
         :key="name"
         class="cursor-pointer ml-6"
         @click="toPath(to)"
+        :class="curPath === to ? 'active' : ''"
       >
         {{ name }}
       </li>
@@ -16,11 +17,17 @@
 
 <script setup lang="ts">
 import { headerItems } from './header-item';
+import { UserPathType } from '@/router/routes';
 
 const router = useRouter();
+const route = useRoute();
 
-const toPath = (to: string) => {
+// substring 是为了去掉前缀/
+const curPath = ref<UserPathType>(route.path.substring(1) as UserPathType);
+
+const toPath = (to: UserPathType) => {
   router.push(to);
+  curPath.value = to;
 };
 </script>
 
@@ -29,5 +36,15 @@ const toPath = (to: string) => {
   min-width: 1024px;
   background-color: #a3a2a3;
   height: 60px;
+
+  .items {
+    li {
+      color: #525252;
+    }
+    .active {
+      color: #000;
+      font-weight: bold;
+    }
+  }
 }
 </style>

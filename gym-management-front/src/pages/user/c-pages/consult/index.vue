@@ -9,13 +9,13 @@
         :rules="rules"
         ref="consultFormRef"
       >
-        <el-form-item label="姓名" prop="name">
+        <el-form-item label="姓名" prop="name"  :required="true">
           <el-input placeholder="请输入姓名" v-model="consultForm.name" />
         </el-form-item>
-        <el-form-item label="手机号码" prop="phone">
+        <el-form-item label="手机号码" prop="phone" :required="true">
           <el-input placeholder="请输入手机号码" v-model="consultForm.phone" />
         </el-form-item>
-        <el-form-item label="留言框" prop="leaveWord">
+        <el-form-item label="留言框" prop="leaveWord" :required="true">
           <el-input
             :rows="5"
             type="textarea"
