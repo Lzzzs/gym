@@ -56,22 +56,19 @@
 </template>
 
 <script setup lang="ts">
-import { FormInstance } from 'element-plus';
-import {
-  checkName,
-  checkPhone,
-  checkAge,
-  checkOldPassword,
-  checkNewPassword,
-  checkCfPassword,
-} from './validator';
+import { ElMessage, FormInstance } from 'element-plus';
+import validator from './validator';
+import { copy } from '@/utils/dataUtil';
+import useUser from '@/hooks/useUser';
+import { updateUserById } from '@/network/user/index';
+import { IPersonalForm } from './type';
 
 const isShowPersonalInfo = ref(true);
 
 const personalFormRef = ref<FormInstance>();
 const passwordFormRef = ref<FormInstance>();
 
-const personalForm = reactive({
+const personalForm = reactive<IPersonalForm>({
   name: '',
   age: null,
   phone: null,
@@ -84,22 +81,38 @@ const passwordForm = reactive({
 });
 
 const personalRules = reactive({
-  name: [{ validator: checkName, trigger: 'change' }],
-  age: [{ validator: checkAge, trigger: 'change' }],
-  phone: [{ validator: checkPhone, trigger: 'change' }],
+  name: [{ validator: validator.checkName, trigger: 'change' }],
+  age: [{ validator: validator.checkAge, trigger: 'change' }],
+  phone: [{ validator: validator.checkPhone, trigger: 'change' }],
 });
 const passwordRules = reactive({
-  oldPassword: [{ validator: checkOldPassword, trigger: 'blur' }],
-  newPassword: [{ validator: checkNewPassword, trigger: 'blur' }],
-  confirmPassword: [{ validator: checkCfPassword, trigger: 'blur' }],
+  oldPassword: [{ validator: validator.checkOldPassword, trigger: 'blur' }],
+  newPassword: [{ validator: validator.checkNewPassword, trigger: 'blur' }],
+  confirmPassword: [{ validator: validator.checkCfPassword, trigger: 'blur' }],
 });
+
+onMounted(() => {
+  getCurrentUser();
+});
+const getCurrentUser = () => {
+  const currentUser = useUser();
+  if (!currentUser) return;
+  copy(personalForm, currentUser);
+};
 
 const savePersonal = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
 
   await formEl.validate((valid) => {
     if (valid) {
-      console.log('savePersonal', personalForm);
+      const currentUser = useUser();
+      if (!currentUser) return;
+      copy(currentUser, personalForm);
+      updateUserById(currentUser).then(() => {
+        // 更新
+        localStorage.setItem('user', JSON.stringify(currentUser));
+        ElMessage.success('保存成功');
+      });
     }
   });
 };

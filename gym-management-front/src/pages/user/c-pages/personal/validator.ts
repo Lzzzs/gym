@@ -1,14 +1,18 @@
-export const checkName = (rule: any, value: any, callback: any) => {
+const checkName = (rule: any, value: any, callback: any) => {
   if (!value) return callback(new Error(`请输入姓名`));
 
-  if (!/^(?:[\u4e00-\u9fa5·]{2,16})$/.test(value)) {
+  // 中文和英文名称都可以
+  if (
+    !/^(?:[\u4e00-\u9fa5·]{2,16})$/.test(value) &&
+    !/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/.test(value)
+  ) {
     return callback(new Error('请输入正确的姓名'));
   }
 
   callback();
 };
 
-export const checkPhone = (rule: any, value: any, callback: any) => {
+const checkPhone = (rule: any, value: any, callback: any) => {
   if (!value) callback();
 
   if (!/^(?:(?:\+|00)86)?1[3-9]\d{9}$/.test(value)) {
@@ -18,7 +22,7 @@ export const checkPhone = (rule: any, value: any, callback: any) => {
   callback();
 };
 
-export const checkAge = (rule: any, value: any, callback: any) => {
+const checkAge = (rule: any, value: any, callback: any) => {
   if (!value) callback();
 
   if (!/^\d+$/.test(value) || value > 200 || value < 1) {
@@ -29,20 +33,29 @@ export const checkAge = (rule: any, value: any, callback: any) => {
 };
 
 // password
-export const checkOldPassword = (rule: any, value: any, callback: any) => {
+const checkOldPassword = (rule: any, value: any, callback: any) => {
   if (!value) return callback(new Error(`请输入密码`));
 
   callback();
 };
 
 let curPassword = '';
-export const checkNewPassword = (rule: any, value: any, callback: any) => {
+const checkNewPassword = (rule: any, value: any, callback: any) => {
   if (!value) return callback(new Error(`请输入密码`));
   curPassword = value;
   callback();
 };
-export const checkCfPassword = (rule: any, value: any, callback: any) => {
+const checkCfPassword = (rule: any, value: any, callback: any) => {
   if (curPassword !== value) return callback(new Error(`两次输入的密码不一致`));
 
   callback();
+};
+
+export default {
+  checkName,
+  checkPhone,
+  checkAge,
+  checkOldPassword,
+  checkNewPassword,
+  checkCfPassword,
 };

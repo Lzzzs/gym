@@ -4,11 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 import top.lzzzs.common.R;
 import top.lzzzs.common.Rcode;
 import top.lzzzs.common.annotation.JwtIgnore;
@@ -113,5 +110,19 @@ public class UsersController {
 
         return R.success(res);
     }
+
+
+    @PutMapping("/updateUserById")
+    public R updateUserById(@RequestBody Users user) {
+
+        // 填充password
+        Users tmp = usersService.getById(user.getId());
+        user.setPassword(tmp.getPassword());
+
+        boolean b = usersService.updateById(user);
+
+        return R.success(b);
+    }
+
 
 }

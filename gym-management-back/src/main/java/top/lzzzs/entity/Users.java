@@ -25,7 +25,6 @@ public class Users implements Serializable {
      * 用户主键
      */
     @TableId(value = "id", type = IdType.AUTO)
-    @JsonIgnore
     private String id;
 
     /**
