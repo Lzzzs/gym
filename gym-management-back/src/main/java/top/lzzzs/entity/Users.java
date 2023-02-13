@@ -50,4 +50,12 @@ public class Users implements Serializable {
      */
     private int role;
 
+    private int age;
+
+    private String phone;
+
+    private String address;
+
+    private String name;
+
 }

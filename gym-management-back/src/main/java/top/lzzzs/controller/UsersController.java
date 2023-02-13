@@ -86,6 +86,7 @@ public class UsersController {
         users.setCreatedTime(DateUtil.createdTime());
         // 默认只能注册用户，不能注册管理员
         users.setRole(2);
+        users.setName(registerInfo.getUsername());
 
         return R.success(usersService.save(users));
     }
