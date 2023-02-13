@@ -1,6 +1,7 @@
 package top.lzzzs.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
@@ -13,6 +14,7 @@ import top.lzzzs.common.dto.LoginDto;
 import top.lzzzs.common.dto.RefreshTokenDto;
 import top.lzzzs.common.dto.RegisterDto;
 import top.lzzzs.entity.Users;
+import top.lzzzs.mapper.UsersMapper;
 import top.lzzzs.service.IUsersService;
 import top.lzzzs.service.impl.UsersServiceImpl;
 import top.lzzzs.utils.DateUtil;
@@ -119,6 +121,22 @@ public class UsersController {
         user.setPassword(tmp.getPassword());
 
         return R.success(usersService.updateById(user));
+    }
+
+    @PutMapping("/updatePasswordById")
+    public R updatePasswordById(@RequestBody Map<String, String> passwordInfo) {
+        Users user = usersService.getById(passwordInfo.get("id"));
+        String md5Pw = user.getPassword();
+        String oldMd5Pw = DigestUtils.md5DigestAsHex(passwordInfo.get("oldPassword").getBytes());
+        if (md5Pw.equals(oldMd5Pw)) {
+            UpdateWrapper<Users> wrapper = new UpdateWrapper<>();
+            wrapper.eq("id", passwordInfo.get("id")).set("password", DigestUtils.md5DigestAsHex(passwordInfo.get("newPassword").getBytes()));
+            usersService.update(null ,wrapper);
+            return R.success(null);
+        }
+
+        return R.error(Rcode.USER_OLD_PASSWORD_ERROR);
+
     }
 
 

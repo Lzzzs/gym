@@ -14,3 +14,9 @@ export interface IUser {
   role: '1' | '2';
   age: number;
 }
+
+export interface IUpdatePassword {
+  id: string;
+  oldPassword: string;
+  newPassword: string;
+}

@@ -10,7 +10,7 @@
         ref="personalFormRef"
         v-show="isShowPersonalInfo"
       >
-        <el-form-item label="姓名" prop="name">
+        <el-form-item label="姓名" prop="name" :required="true">
           <el-input v-model="personalForm.name" />
         </el-form-item>
         <el-form-item label="年龄" prop="age">
@@ -37,13 +37,13 @@
         ref="passwordFormRef"
         v-show="!isShowPersonalInfo"
       >
-        <el-form-item label="原密码" prop="oldPassword">
+        <el-form-item label="原密码" prop="oldPassword" :required="true">
           <el-input v-model="passwordForm.oldPassword" type="password" />
         </el-form-item>
-        <el-form-item label="新密码" prop="newPassword">
+        <el-form-item label="新密码" prop="newPassword" :required="true">
           <el-input v-model="passwordForm.newPassword" type="password" />
         </el-form-item>
-        <el-form-item label="确认密码" prop="confirmPassword">
+        <el-form-item label="确认密码" prop="confirmPassword" :required="true">
           <el-input v-model="passwordForm.confirmPassword" type="password" />
         </el-form-item>
         <el-form-item class="mt-5">
@@ -58,10 +58,11 @@
 <script setup lang="ts">
 import { ElMessage, FormInstance } from 'element-plus';
 import validator from './validator';
-import { copy } from '@/utils/dataUtil';
+import { copy, emptyObj } from '@/utils/dataUtil';
 import useUser from '@/hooks/useUser';
-import { updateUserById } from '@/network/user/index';
+import { updateUserById, updatePasswordById } from '@/network/user/index';
 import { IPersonalForm } from './type';
+import { IUpdatePassword } from '@/types/user/index';
 
 const isShowPersonalInfo = ref(true);
 
@@ -121,7 +122,18 @@ const savePasswords = async (formEl: FormInstance | undefined) => {
 
   await formEl.validate((valid) => {
     if (valid) {
-      console.log('savePasswords', passwordForm);
+      const currentUser = useUser();
+      if (!currentUser) return;
+      const passwordInfo: IUpdatePassword = {
+        id: currentUser.id,
+        oldPassword: passwordForm.oldPassword,
+        newPassword: passwordForm.newPassword,
+      };
+
+      updatePasswordById(passwordInfo).then(() => {
+        ElMessage.success('修改成功');
+        emptyObj(passwordForm);
+      });
     }
   });
 };

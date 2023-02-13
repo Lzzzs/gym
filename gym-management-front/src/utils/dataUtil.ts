@@ -7,3 +7,9 @@ export function copy<T>(target: T, source: T): void {
     });
   }
 }
+
+export function emptyObj(target: object) {
+  Object.keys(target).forEach((key) => {
+    target[key] = null;
+  });
+}
