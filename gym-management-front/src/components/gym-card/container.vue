@@ -17,7 +17,12 @@
     <el-empty description="没有数据" :image-size="200" />
   </div>
 
-  <drawer title="详细信息" data="其他数据" ref="drawerRef" />
+  <drawer
+    title="详细信息"
+    data="教练10人，其中高级教练3人，位于广州番禺区海印又一城6楼，拥有动感单车、运动康复、身材管理、游泳健身、孕产康复等等
+"
+    ref="drawerRef"
+  />
 </template>
 
 <script setup lang="ts">

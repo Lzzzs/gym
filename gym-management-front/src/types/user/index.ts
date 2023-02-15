@@ -20,3 +20,10 @@ export interface IUpdatePassword {
   oldPassword: string;
   newPassword: string;
 }
+
+export interface ILeaveWord {
+  userId: string;
+  phone: string;
+  name: string;
+  content: string;
+}

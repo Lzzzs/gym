@@ -32,7 +32,7 @@ const cardInfos: ICardInfo[] = [
     detailList: [
       {
         name: '场点',
-        value: '21312312',
+        value: '乐动健身俱乐部',
       },
       {
         name: '场馆人数',

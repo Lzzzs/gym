@@ -1,6 +1,6 @@
 <template>
   <el-drawer v-model="isShowDrawer" :title="title">
-    <span>{{ data }}</span>
+    <div class="drawer-detail">{{ data }}</div>
   </el-drawer>
 </template>
 
@@ -17,4 +17,8 @@ defineExpose({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.drawer-detail {
+  line-height: 2;
+}
+</style>
