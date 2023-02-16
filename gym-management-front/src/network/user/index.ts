@@ -1,5 +1,6 @@
 import instance from '../index';
 import { IUser, IUpdatePassword, ILeaveWord } from '@/types/user/index';
+import { IGymnasiumInfoRes } from './type';
 
 const baseURl = '/user';
 
@@ -24,5 +25,12 @@ export const addLeaveWord = (leaveWordInfo: ILeaveWord) => {
     method: 'post',
     url: `/addLeaveWord`,
     data: leaveWordInfo,
+  });
+};
+
+export const getGymnasiumInfo = (page: number, limit: number) => {
+  return instance<IGymnasiumInfoRes>({
+    method: 'get',
+    url: `getGymnasiumInfo?page=${page}&limit=${limit}`,
   });
 };

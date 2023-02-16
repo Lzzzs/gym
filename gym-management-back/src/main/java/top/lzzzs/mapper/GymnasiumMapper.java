@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author lzzzs
- * @since 2023-02-07
+ * @since 2023-02-15
  */
 public interface GymnasiumMapper extends BaseMapper<Gymnasium> {
 

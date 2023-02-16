@@ -13,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { emitChangeFn } from 'element-plus';
-
 const { total } = defineProps({
   total: Number,
 });

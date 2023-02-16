@@ -2,7 +2,7 @@ package top.lzzzs.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -12,8 +12,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author lzzzs
- * @since 2023-02-07
+ * @since 2023-02-15
  */
+@Data
 public class Gymnasium implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,7 +23,6 @@ public class Gymnasium implements Serializable {
      * 健身房id
      */
     @TableId(value = "id", type = IdType.AUTO)
-    @JsonIgnore
     private Integer id;
 
     /**
@@ -40,45 +40,24 @@ public class Gymnasium implements Serializable {
      */
     private String place;
 
-    public Integer getId() {
-        return id;
-    }
+    /**
+     * 详情文字
+     */
+    private String detailText;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    /**
+     * 详情图片
+     */
+    private String detailImg;
 
-    public Integer getCurnum() {
-        return curnum;
-    }
+    /**
+     * 健身房图片
+     */
+    private String img;
 
-    public void setCurnum(Integer curnum) {
-        this.curnum = curnum;
-    }
+    /**
+     * 健身房名字
+     */
+    private String name;
 
-    public Integer getTotalnum() {
-        return totalnum;
-    }
-
-    public void setTotalnum(Integer totalnum) {
-        this.totalnum = totalnum;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    @Override
-    public String toString() {
-        return "Gymnasium{" +
-            "id = " + id +
-            ", curnum = " + curnum +
-            ", totalnum = " + totalnum +
-            ", place = " + place +
-        "}";
-    }
 }

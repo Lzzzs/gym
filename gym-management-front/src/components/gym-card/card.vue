@@ -5,7 +5,8 @@
         :src="cardInfo!.imgUrl"
         class="card-img"
         fit="cover"
-        @click="viewDetail"
+        @click="viewDetail(cardInfo.id, cardInfo.detail)"
+        style="width: 100%"
       />
 
       <ul class="card-detail mt-5 mb-5" v-if="cardInfo?.detailList">
@@ -15,7 +16,7 @@
       </ul>
 
       <div class="card-btn mt-5">
-        <el-button style="width: 100%" @click="btnClick(cardInfo!.id)">{{
+        <el-button style="width: 100%" @click="btnClick(cardInfo.id)">{{
           btnText
         }}</el-button>
       </div>
@@ -24,21 +25,23 @@
 </template>
 
 <script setup lang="ts">
-const { btnText, cardInfo } = defineProps({
-  btnText: String,
-  cardInfo: Object,
-});
+import { ICardInfoDetail, ICardInfo } from '@/types/user';
+
+const { btnText, cardInfo } = defineProps<{
+  btnText: string;
+  cardInfo: ICardInfo;
+}>();
 
 const emit = defineEmits<{
   (event: 'btnClick', id: number): void;
-  (event: 'imgClick'): void;
+  (event: 'imgClick', id: number, detail: ICardInfoDetail): void;
 }>();
 
 const btnClick = (id: number) => {
   emit('btnClick', id);
 };
-const viewDetail = () => {
-  emit('imgClick');
+const viewDetail = (id: number, detail: ICardInfoDetail) => {
+  emit('imgClick', id, detail);
 };
 </script>
 

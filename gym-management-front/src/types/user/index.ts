@@ -2,6 +2,12 @@ export interface ICardInfo {
   id: number;
   imgUrl: string;
   detailList?: { name: string; value: string }[];
+  detail: ICardInfoDetail;
+}
+export interface ICardInfoDetail {
+  text: string;
+  title?: string;
+  imgs?: string[];
 }
 
 export interface IUser {

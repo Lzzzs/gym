@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author lzzzs
- * @since 2023-02-07
+ * @since 2023-02-15
  */
 @Service
 public class GymnasiumServiceImpl extends ServiceImpl<GymnasiumMapper, Gymnasium> implements IGymnasiumService {
