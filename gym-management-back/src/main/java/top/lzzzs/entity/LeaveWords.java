@@ -3,17 +3,20 @@ package top.lzzzs.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author lzzzs
  * @since 2023-02-14
  */
 @TableName("leave_words")
+@Data
 public class LeaveWords implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,54 +47,14 @@ public class LeaveWords implements Serializable {
      */
     private String content;
 
-    public Integer getId() {
-        return id;
-    }
+    /**
+     * 回复内容
+     */
+    private String replyContent;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    /**
+     * 回复时间
+     */
+    private String replyTime;
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "LeaveWords{" +
-            "id = " + id +
-            ", userId = " + userId +
-            ", name = " + name +
-            ", phone = " + phone +
-            ", content = " + content +
-        "}";
-    }
 }

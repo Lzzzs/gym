@@ -1,6 +1,6 @@
 <template>
   <user-page-layout title="咨询服务">
-    <div class="flexc mt-10">
+    <div class="flexc mt-10 relative">
       <el-form
         label-position="top"
         label-width="100px"
@@ -27,6 +27,14 @@
           <el-button @click="submit(consultFormRef)">提交</el-button>
         </el-form-item>
       </el-form>
+
+      <div class="absolute right-0 top-0">
+        <el-button @click="viewReplyInfo">查看回信</el-button>
+      </div>
+
+      <el-drawer v-model="isShowDrawer" title="所有回信">
+        <reply-item v-for="item in replyList" :itemData="item"></reply-item>
+      </el-drawer>
     </div>
   </user-page-layout>
 </template>
@@ -34,13 +42,16 @@
 <script setup lang="ts">
 import { ElMessage, FormInstance } from 'element-plus';
 import { checkName, checkPhone, checkContent } from './validator';
-import { addLeaveWord } from '@/network/user/index';
+import { addLeaveWord, getReplyInfo } from '@/network/user/index';
+import { IReplyItem } from '@/network/user/type';
 import { getCurrentUser } from '@/utils/userUtil';
 import { emptyObj } from '@/utils/dataUtil';
 import { ILeaveWord } from '@/types/user/index';
+import replyItem from './c-cpns/reply-item.vue';
 
 const consultFormRef = ref<FormInstance>();
-
+const isShowDrawer = ref(false);
+const replyList: IReplyItem[] = reactive([]);
 const consultForm = reactive({
   name: '',
   phone: '',
@@ -51,6 +62,11 @@ const rules = reactive({
   name: [{ validator: checkName, trigger: 'blur' }],
   phone: [{ validator: checkPhone, trigger: 'blur' }],
   content: [{ validator: checkContent, trigger: 'blur' }],
+});
+
+const currentUser = getCurrentUser()!;
+getReplyInfo(currentUser.id).then(({ list }) => {
+  list.map((item) => replyList.push(item));
 });
 
 const submit = async (formEl: FormInstance | undefined) => {
@@ -67,6 +83,10 @@ const submit = async (formEl: FormInstance | undefined) => {
       });
     }
   });
+};
+
+const viewReplyInfo = () => {
+  isShowDrawer.value = true;
 };
 </script>
 

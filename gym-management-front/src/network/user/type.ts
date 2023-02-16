@@ -13,3 +13,13 @@ export interface IGymnasiumInfoRecords {
   place: string;
   name: string;
 }
+
+export interface IReplyInfoRes {
+  list: IReplyItem[];
+}
+
+export interface IReplyItem {
+  content: string;
+  replyContent: string;
+  replyTime: string;
+}
