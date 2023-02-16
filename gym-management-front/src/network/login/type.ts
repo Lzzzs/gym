@@ -1,8 +1,4 @@
-export interface ILoginResUser {
-  username: string;
-  role: '1' | '2' | '';
-  createdTime: string;
-}
+import { IUser } from '@/types/user/index';
 
 interface IToken {
   token: string;
@@ -10,6 +6,6 @@ interface IToken {
 }
 
 export interface ILoginRes extends IToken {
-  user: ILoginResUser;
+  user: IUser;
 }
 export interface IRefreshTokenRes extends IToken {}

@@ -22,7 +22,11 @@ export function responseSuccessHandler(
 
   const code = res.data.code;
   const message = res.data.message;
-  console.log(message, code);
+
+  if (!code) {
+    ElMessage.error('网络错误');
+    return Promise.reject(null);
+  }
 
   // 错误信息都从接口获取
   if (code !== successCode) {

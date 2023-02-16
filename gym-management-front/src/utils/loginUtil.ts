@@ -1,4 +1,4 @@
-import { ILoginResUser } from '@/network/login/type';
+import { IUser } from '@/types/user/index';
 
 export function isLogin(): boolean {
   const token = localStorage.getItem('token');
@@ -14,11 +14,7 @@ export function logout() {
   localStorage.setItem('user', '');
 }
 
-export function login(
-  token: string,
-  refreshToken: string,
-  user: ILoginResUser
-) {
+export function login(token: string, refreshToken: string, user: IUser) {
   localStorage.setItem('token', JSON.stringify(token));
   localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
   localStorage.setItem('user', JSON.stringify(user));

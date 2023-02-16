@@ -1,13 +1,13 @@
 <template>
   <user-page-layout title="健身房预约">
     <Cards
-      btn-text="预约此场馆"
+      btn-text="预约此健身房"
       :card-infos="cardInfos"
       @btn-click="handleBtnClick"
     ></Cards>
 
     <user-page-pagination
-      :total="5"
+      :total="total"
       @page-change="handlePageChange"
     ></user-page-pagination>
   </user-page-layout>
@@ -16,92 +16,49 @@
 <script setup lang="ts">
 import Cards from '@/components/gym-card/container.vue';
 import { ICardInfo } from '@/types/user/index';
+import { getGymnasiumInfo } from '@/network/user/index';
+import { IGymnasiumInfoRecords } from '@/network/user/type';
+
+const total = ref(0);
+const page = ref(1);
+const limit = ref(4);
+let cardInfos = reactive<ICardInfo[]>([]);
 
 const handleBtnClick = (id: number) => {
   console.log(id);
 };
-const handlePageChange = (page: number) => {
-  console.log(page);
+const handlePageChange = (p: number) => {
+  page.value = p;
 };
 
-const cardInfos: ICardInfo[] = [
-  {
-    id: 1,
-    imgUrl:
-      'https://images.unsplash.com/photo-1675750318176-98573021fc30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80',
-    detailList: [
-      {
-        name: '场点',
-        value: '21312312',
+watchEffect(() => {
+  getGymnasiumInfo(page.value, limit.value).then((item) => {
+    total.value = item.total;
+    fillCardInfo(item.records);
+  });
+});
+
+function fillCardInfo(records: IGymnasiumInfoRecords[]) {
+  if (cardInfos.length !== 0) cardInfos.length = 0;
+
+  records.forEach((item) => {
+    const tmp: ICardInfo = {
+      id: item.id,
+      imgUrl: item.img,
+      detailList: [
+        { name: '场馆名称', value: item.name },
+        { name: '场馆人数', value: item.totalnum + '' },
+        { name: '剩余位置', value: item.totalnum - item.curnum + '' },
+      ],
+      detail: {
+        text: item.detailText,
+        imgs: item.detailImg.split(','),
       },
-      {
-        name: '场馆人数',
-        value: '200',
-      },
-      {
-        name: '剩余位置',
-        value: '180',
-      },
-    ],
-  },
-  {
-    id: 2,
-    imgUrl:
-      'https://images.unsplash.com/photo-1675750318176-98573021fc30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80',
-    detailList: [
-      {
-        name: '场点',
-        value: '22',
-      },
-      {
-        name: '场馆人数',
-        value: '600',
-      },
-      {
-        name: '剩余位置',
-        value: '180',
-      },
-    ],
-  },
-  {
-    id: 3,
-    imgUrl:
-      'https://images.unsplash.com/photo-1675750318176-98573021fc30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80',
-    detailList: [
-      {
-        name: '场点',
-        value: '22',
-      },
-      {
-        name: '场馆人数',
-        value: '600',
-      },
-      {
-        name: '剩余位置',
-        value: '180',
-      },
-    ],
-  },
-  {
-    id: 4,
-    imgUrl:
-      'https://images.unsplash.com/photo-1675750318176-98573021fc30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80',
-    detailList: [
-      {
-        name: '场点',
-        value: '22',
-      },
-      {
-        name: '场馆人数',
-        value: '600',
-      },
-      {
-        name: '剩余位置',
-        value: '180',
-      },
-    ],
-  },
-];
+    };
+
+    cardInfos.push(tmp);
+  });
+}
 </script>
 
 <style lang="less" scoped></style>

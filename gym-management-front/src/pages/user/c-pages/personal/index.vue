@@ -108,7 +108,7 @@ const savePersonal = async (formEl: FormInstance | undefined) => {
     if (valid) {
       const currentUser = useUser();
       if (!currentUser) return;
-      copy(currentUser, personalForm);
+      copy(currentUser, personalForm as any);
       updateUserById(currentUser).then(() => {
         // 更新
         localStorage.setItem('user', JSON.stringify(currentUser));
