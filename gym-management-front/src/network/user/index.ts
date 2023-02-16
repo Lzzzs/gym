@@ -1,6 +1,6 @@
 import instance from '../index';
 import { IUser, IUpdatePassword, ILeaveWord } from '@/types/user/index';
-import { IGymnasiumInfoRes, IReplyInfoRes } from './type';
+import { IGymnasiumInfoRes, IReplyInfoRes, ICourseInfoRes } from './type';
 
 const baseURl = '/user';
 
@@ -39,5 +39,12 @@ export const getReplyInfo = (userId: string) => {
   return instance<IReplyInfoRes>({
     method: 'get',
     url: `getReplyInfo?userId=${userId}`,
+  });
+};
+
+export const getCourseInfo = (page: number, limit: number) => {
+  return instance<ICourseInfoRes>({
+    method: 'get',
+    url: `getCourseInfo?page=${page}&limit=${limit}`,
   });
 };

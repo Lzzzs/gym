@@ -14,6 +14,17 @@ export interface IGymnasiumInfoRecords {
   name: string;
 }
 
+export interface ICourseInfoRes {
+  records: ICourseInfoRecords[];
+  total: number;
+}
+
+export interface ICourseInfoRecords {
+  id: number;
+  img: string;
+  detailText: string;
+}
+
 export interface IReplyInfoRes {
   list: IReplyItem[];
 }
