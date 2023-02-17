@@ -34,3 +34,9 @@ export interface IReplyItem {
   replyContent: string;
   replyTime: string;
 }
+
+export interface IGymnasiumSubscribeInfo {
+  gymnasiumId: number;
+  userId: string;
+  subscribeTime: string;
+}

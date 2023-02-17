@@ -1,6 +1,11 @@
 import instance from '../index';
 import { IUser, IUpdatePassword, ILeaveWord } from '@/types/user/index';
-import { IGymnasiumInfoRes, IReplyInfoRes, ICourseInfoRes } from './type';
+import {
+  IGymnasiumInfoRes,
+  IReplyInfoRes,
+  ICourseInfoRes,
+  IGymnasiumSubscribeInfo,
+} from './type';
 
 const baseURl = '/user';
 
@@ -46,5 +51,15 @@ export const getCourseInfo = (page: number, limit: number) => {
   return instance<ICourseInfoRes>({
     method: 'get',
     url: `getCourseInfo?page=${page}&limit=${limit}`,
+  });
+};
+
+export const saveGymnasiumSubscribe = (
+  gymnasiumSubscribeInfo: IGymnasiumSubscribeInfo
+) => {
+  return instance({
+    method: 'post',
+    url: `saveGymnasiumSubscribe`,
+    data: gymnasiumSubscribeInfo,
   });
 };

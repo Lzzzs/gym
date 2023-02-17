@@ -12,5 +12,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-02-15
  */
 public interface IGymnasiumService extends IService<Gymnasium> {
-
 }
