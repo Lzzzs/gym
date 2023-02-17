@@ -11,6 +11,8 @@ declare module '@vue/runtime-core' {
     Container: typeof import('./src/components/gym-card/container.vue')['default']
     Drawer: typeof import('./src/components/gym-card/drawer.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
     ElForm: typeof import('element-plus/es')['ElForm']

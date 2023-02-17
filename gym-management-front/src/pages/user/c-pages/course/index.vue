@@ -7,7 +7,7 @@
     ></Cards>
 
     <user-page-pagination
-      :total="5"
+      :total="total"
       @page-change="handlePageChange"
     ></user-page-pagination>
   </user-page-layout>
@@ -16,6 +16,13 @@
 <script setup lang="ts">
 import Cards from '@/components/gym-card/container.vue';
 import { ICardInfo } from '@/types/user/index';
+import { getCourseInfo } from '@/network/user/index';
+import { ICourseInfoRecords } from '@/network/user/type';
+
+const total = ref(0);
+const page = ref(1);
+const limit = ref(4);
+let cardInfos = reactive<ICardInfo[]>([]);
 
 const handleBtnClick = (id: number) => {
   console.log(id);
@@ -24,28 +31,28 @@ const handlePageChange = (page: number) => {
   console.log(page);
 };
 
-const cardInfos: ICardInfo[] = [
-  {
-    id: 1,
-    imgUrl:
-      'https://images.unsplash.com/photo-1675750318176-98573021fc30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80',
-  },
-  {
-    id: 2,
-    imgUrl:
-      'https://images.unsplash.com/photo-1675750318176-98573021fc30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80',
-  },
-  {
-    id: 3,
-    imgUrl:
-      'https://images.unsplash.com/photo-1675750318176-98573021fc30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80',
-  },
-  {
-    id: 4,
-    imgUrl:
-      'https://images.unsplash.com/photo-1675750318176-98573021fc30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80',
-  },
-];
+watchEffect(() => {
+  getCourseInfo(page.value, limit.value).then((item) => {
+    total.value = item.total;
+    fillCardInfo(item.records);
+  });
+});
+
+function fillCardInfo(records: ICourseInfoRecords[]) {
+  if (cardInfos.length !== 0) cardInfos.length = 0;
+
+  records.forEach((item) => {
+    const tmp: ICardInfo = {
+      id: item.id,
+      imgUrl: item.img,
+      detail: {
+        text: item.detailText,
+      },
+    };
+
+    cardInfos.push(tmp);
+  });
+}
 </script>
 
 <style lang="less" scoped></style>

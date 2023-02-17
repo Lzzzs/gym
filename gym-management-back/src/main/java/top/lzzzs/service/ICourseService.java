@@ -1,6 +1,6 @@
 package top.lzzzs.service;
 
-import top.lzzzs.entity.Gymnasium;
+import top.lzzzs.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,7 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author lzzzs
- * @since 2023-02-15
+ * @since 2023-02-16
  */
-public interface IGymnasiumService extends IService<Gymnasium> {
+public interface ICourseService extends IService<Course> {
+
 }

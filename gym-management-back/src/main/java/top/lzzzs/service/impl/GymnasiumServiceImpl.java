@@ -16,5 +16,4 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class GymnasiumServiceImpl extends ServiceImpl<GymnasiumMapper, Gymnasium> implements IGymnasiumService {
-
 }
