@@ -131,13 +131,38 @@ public class UsersController {
         if (md5Pw.equals(oldMd5Pw)) {
             UpdateWrapper<Users> wrapper = new UpdateWrapper<>();
             wrapper.eq("id", passwordInfo.get("id")).set("password", DigestUtils.md5DigestAsHex(passwordInfo.get("newPassword").getBytes()));
-            usersService.update(null ,wrapper);
+            usersService.update(null, wrapper);
             return R.success(null);
         }
 
         return R.error(Rcode.USER_OLD_PASSWORD_ERROR);
-
     }
 
+    @GetMapping("/getAllUser")
+    public R getAllUser() {
+        QueryWrapper<Users> usersQueryWrapper = new QueryWrapper<>();
+        usersQueryWrapper.eq("role", 2).orderByDesc("created_time");
+        return R.success(usersService.list(usersQueryWrapper));
+    }
+
+    @DeleteMapping("/deleteUserById")
+    public R deleteUserById(@RequestParam String id) {
+        return R.success(usersService.removeById(id));
+    }
+
+    @PostMapping("/addUser")
+    public R addUser(@RequestBody Map<String, String> userInfo) {
+        R registerInfo = register(new RegisterDto(userInfo.get("username"), userInfo.get("password")));
+        // 用户已存在
+        if (registerInfo.getCode() == Rcode.USER_EXIST.code()) {
+            return R.error(Rcode.USER_EXIST);
+        }
+
+        UpdateWrapper<Users> usersUpdateWrapper = new UpdateWrapper<>();
+        usersUpdateWrapper.eq("username", userInfo.get("username")).set("age", userInfo.get("age").length() == 0 ? 0 : Integer.parseInt(userInfo.get("age"))).set("phone", userInfo.get("phone")).set("address", userInfo.get("address"));
+        usersService.update(null, usersUpdateWrapper);
+
+        return R.success(null);
+    }
 
 }

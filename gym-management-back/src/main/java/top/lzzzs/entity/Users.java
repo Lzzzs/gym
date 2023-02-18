@@ -57,4 +57,7 @@ public class Users implements Serializable {
 
     private String name;
 
+    @JsonIgnore
+    private int deleted;
+
 }

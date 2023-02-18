@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@element-plus/icons-vue': ^2.0.10
   '@types/node': ^18.11.18
   '@types/nprogress': ^0.2.0
   '@vitejs/plugin-vue': ^4.0.0
@@ -21,6 +22,7 @@ specifiers:
   vue-tsc: ^1.0.11
 
 dependencies:
+  '@element-plus/icons-vue': 2.0.10_vue@3.2.45
   '@types/nprogress': 0.2.0
   '@vueuse/core': 9.12.0_vue@3.2.45
   axios: 1.2.3

@@ -17,6 +17,21 @@ export const userPath: { [k in UserPathType]: string } = {
   personal: '/personal',
 };
 
+export type AdminPathType =
+  | 'userInfo'
+  | 'coachInfo'
+  | 'gymInfo'
+  | 'courseInfo'
+  | 'passwordInfo';
+
+export const adminPath: { [k in AdminPathType]: string } = {
+  userInfo: 'userInfo',
+  coachInfo: 'coachInfo',
+  gymInfo: 'gymInfo',
+  courseInfo: 'courseInfo',
+  passwordInfo: 'passwordInfo',
+};
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/login',
@@ -32,6 +47,44 @@ const routes: RouteRecordRaw[] = [
     meta: {
       requiresAuth: true,
     },
+    redirect: `/admin/${adminPath.userInfo}`,
+    children: [
+      {
+        path: adminPath.userInfo,
+        component: () => import('@/pages/admin/c-pages/userInfo/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: adminPath.coachInfo,
+        component: () => import('@/pages/admin/c-pages/coachInfo/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: adminPath.gymInfo,
+        component: () => import('@/pages/admin/c-pages/gymInfo/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: adminPath.courseInfo,
+        component: () => import('@/pages/admin/c-pages/courseInfo/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: adminPath.passwordInfo,
+        component: () => import('@/pages/admin/c-pages/passwordInfo/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+    ],
   },
   {
     path: '/',
