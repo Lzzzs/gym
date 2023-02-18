@@ -7,6 +7,9 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AdminPageHeader: typeof import('./src/components/admin-page-header/index.vue')['default']
+    AdminPageLayout: typeof import('./src/components/admin-page-layout.vue')['default']
+    AdminPageSidebar: typeof import('./src/components/admin-page-sidebar/index.vue')['default']
     Card: typeof import('./src/components/gym-card/card.vue')['default']
     Container: typeof import('./src/components/gym-card/container.vue')['default']
     Drawer: typeof import('./src/components/gym-card/drawer.vue')['default']
@@ -17,13 +20,18 @@ declare module '@vue/runtime-core' {
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElImg: typeof import('element-plus/es')['ElImg']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElLink: typeof import('element-plus/es')['ElLink']
+    ElMenu: typeof import('element-plus/es')['ElMenu']
+    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
+    ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     GymCard: typeof import('./src/components/gym-card/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
