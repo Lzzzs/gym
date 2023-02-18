@@ -70,3 +70,18 @@ export const getAllUser = () => {
     url: `user/getAllUser`,
   });
 };
+
+export const deleteUserById = (id: string) => {
+  return instance({
+    method: 'delete',
+    url: `user/deleteUserById?id=${id}`,
+  });
+};
+
+export const addUserByUserInfo = (userInfo: IUser) => {
+  return instance({
+    method: 'post',
+    url: `user/addUser`,
+    data: userInfo,
+  });
+};

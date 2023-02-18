@@ -42,7 +42,7 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button @click="handleCancel">取消</el-button>
         <el-button type="primary" @click="handleConfirm(personalFormRef)">
           确认
         </el-button>
@@ -67,10 +67,11 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{
   (event: 'updateDialogStatus', status: boolean): void;
-  (event: 'confirm', personalForm: any): void;
+  (event: 'confirm', personalForm: any, isUpdate: boolean): void;
 }>();
 
 const personalForm = reactive({
+  id: '',
   username: '',
   name: '',
   age: null,
@@ -78,6 +79,7 @@ const personalForm = reactive({
   address: '',
   createdTime: '',
   password: '',
+  role: 2,
 });
 
 const handleBeforeClose = (done: () => void) => {
@@ -88,9 +90,13 @@ const handleConfirm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid) => {
     if (valid) {
-      emit('confirm', personalForm);
+      emit('confirm', personalForm, isUpdate.value);
     }
   });
+};
+const handleCancel = () => {
+  clearForm();
+  dialogVisible.value = false;
 };
 
 function clearForm() {

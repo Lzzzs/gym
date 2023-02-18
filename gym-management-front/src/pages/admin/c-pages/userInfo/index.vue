@@ -32,7 +32,12 @@
 </template>
 
 <script setup lang="ts">
-import { getAllUser } from '@/network/user';
+import {
+  getAllUser,
+  updateUserById,
+  deleteUserById,
+  addUserByUserInfo,
+} from '@/network/user';
 import { IUser } from '@/types/user';
 import userInfoDialog from './c-cpns/user-info-dialog.vue';
 
@@ -40,12 +45,7 @@ const tableData: IUser[] = reactive([]);
 let userInfo: IUser | null = reactive({} as IUser);
 const userInfoDialogStatus = ref(false);
 
-getAllUser().then((res) => {
-  res.forEach((item) => {
-    item.age == 0 ? (item.age = null) : (item.age = item.age);
-    tableData.push(item);
-  });
-});
+getData();
 
 const handleUserUpdate = (scope: { row: IUser }) => {
   if (userInfo === null) userInfo = reactive({} as IUser);
@@ -55,7 +55,16 @@ const handleUserUpdate = (scope: { row: IUser }) => {
   userInfoDialogStatus.value = true;
 };
 const handleUserDelete = (scope: any) => {
-  console.log('handleUserDelete', scope);
+  ElMessageBox.confirm('确定删除吗？', 'Warning', {
+    confirmButtonText: 'OK',
+    cancelButtonText: 'Cancel',
+    type: 'warning',
+  }).then(() => {
+    deleteUserById(scope.row.id).then(() => {
+      ElMessage.success('删除成功');
+      getData();
+    });
+  });
 };
 const addUser = () => {
   userInfoDialogStatus.value = true;
@@ -64,9 +73,33 @@ const addUser = () => {
 const updateDialogStatus = (status: boolean) => {
   userInfoDialogStatus.value = status;
 };
-const confirm = (form: IUser) => {
-  console.log(form);
+const confirm = (form: IUser, isUpdate: boolean) => {
+  if (isUpdate) {
+    updateUserById(form).then(() => {
+      ElMessage.success('修改成功');
+      userInfoDialogStatus.value = false;
+      getData();
+    });
+  } else {
+    // add
+    console.log(form);
+    addUserByUserInfo(form).then(() => {
+      ElMessage.success('添加成功');
+      userInfoDialogStatus.value = false;
+      getData();
+    });
+  }
 };
+
+function getData() {
+  tableData.length = 0;
+  getAllUser().then((res) => {
+    res.forEach((item) => {
+      item.age == 0 ? (item.age = null) : (item.age = item.age);
+      tableData.push(item);
+    });
+  });
+}
 </script>
 
 <style scoped></style>
