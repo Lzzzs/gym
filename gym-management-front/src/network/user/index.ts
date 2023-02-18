@@ -5,6 +5,8 @@ import {
   IReplyInfoRes,
   ICourseInfoRes,
   IGymnasiumSubscribeInfo,
+  ILeaveWordRes,
+  IReplyInfo,
 } from './type';
 
 const baseURl = '/user';
@@ -40,10 +42,17 @@ export const getGymnasiumInfo = (page: number, limit: number) => {
   });
 };
 
-export const getReplyInfo = (userId: string) => {
+export const getReplyInfoByUserId = (userId: string) => {
   return instance<IReplyInfoRes>({
     method: 'get',
-    url: `getReplyInfo?userId=${userId}`,
+    url: `getReplyInfoByUserId?userId=${userId}`,
+  });
+};
+
+export const getAllLeaveWord = () => {
+  return instance<ILeaveWordRes>({
+    method: 'get',
+    url: `getAllLeaveWord`,
   });
 };
 
@@ -83,5 +92,13 @@ export const addUserByUserInfo = (userInfo: IUser) => {
     method: 'post',
     url: `user/addUser`,
     data: userInfo,
+  });
+};
+
+export const replyLeaveWord = (replyInfo: IReplyInfo) => {
+  return instance({
+    method: 'post',
+    url: `replyLeaveWord`,
+    data: replyInfo,
   });
 };

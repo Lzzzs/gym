@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { ElMessage, FormInstance } from 'element-plus';
 import { checkName, checkPhone, checkContent } from './validator';
-import { addLeaveWord, getReplyInfo } from '@/network/user/index';
+import { addLeaveWord, getReplyInfoByUserId } from '@/network/user/index';
 import { IReplyItem } from '@/network/user/type';
 import { getCurrentUser } from '@/utils/userUtil';
 import { emptyObj } from '@/utils/dataUtil';
@@ -65,7 +65,7 @@ const rules = reactive({
 });
 
 const currentUser = getCurrentUser()!;
-getReplyInfo(currentUser.id).then(({ list }) => {
+getReplyInfoByUserId(currentUser.id).then(({ list }) => {
   list.map((item) => replyList.push(item));
 });
 

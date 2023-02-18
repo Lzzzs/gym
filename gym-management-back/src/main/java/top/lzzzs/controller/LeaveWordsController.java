@@ -1,6 +1,7 @@
 package top.lzzzs.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import top.lzzzs.common.R;
 import top.lzzzs.entity.LeaveWords;
 import top.lzzzs.service.ILeaveWordsService;
 import top.lzzzs.service.impl.LeaveWordsServiceImpl;
+import top.lzzzs.utils.DateUtil;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,7 +34,7 @@ public class LeaveWordsController {
         return R.success(leaveWordsService.save(leaveWordInfo));
     }
 
-    @GetMapping("/getReplyInfo")
+    @GetMapping("/getReplyInfoByUserId")
     public R getLeaveWord(@RequestParam("userId") String userId) {
         QueryWrapper<LeaveWords> leaveWordsQueryWrapper = new QueryWrapper<>();
         leaveWordsQueryWrapper.eq("user_id", userId);
@@ -51,5 +53,34 @@ public class LeaveWordsController {
         res.put("list", l);
 
         return R.success(res);
+    }
+
+    @GetMapping("/getAllLeaveWord")
+    public R getAllLeaveWord() {
+        QueryWrapper<LeaveWords> leaveWordsQueryWrapper = new QueryWrapper<>();
+        leaveWordsQueryWrapper.isNull("reply_content");
+        List<LeaveWords> list = leaveWordsService.list(leaveWordsQueryWrapper);
+
+        HashMap<String, Object> res = new HashMap<>();
+        HashSet<Object> l = new HashSet<>();
+
+        for (LeaveWords leaveWordInfo : list) {
+            HashMap<String, Object> tmp = new HashMap<>();
+            tmp.put("id", leaveWordInfo.getId());
+            tmp.put("name", leaveWordInfo.getName());
+            tmp.put("phone", leaveWordInfo.getPhone());
+            tmp.put("content", leaveWordInfo.getContent());
+            l.add(tmp);
+        }
+        res.put("list", l);
+
+        return R.success(res);
+    }
+
+    @PostMapping("/replyLeaveWord")
+    public R replyLeaveWord(@RequestBody LeaveWords leaveWordInfo) {
+        UpdateWrapper<LeaveWords> leaveWordsUpdateWrapper = new UpdateWrapper<>();
+        leaveWordsUpdateWrapper.eq("id", leaveWordInfo.getId()).set("reply_content", leaveWordInfo.getReplyContent()).set("reply_time", DateUtil.createdTime());
+        return R.success(leaveWordsService.update(leaveWordsUpdateWrapper));
     }
 }
