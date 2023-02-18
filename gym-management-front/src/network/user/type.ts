@@ -29,10 +29,26 @@ export interface IReplyInfoRes {
   list: IReplyItem[];
 }
 
+export interface ILeaveWordRes {
+  list: ILeaveWordItem[];
+}
+
+export interface ILeaveWordItem {
+  id: number;
+  name: string;
+  phone: string;
+  content: string;
+}
+
 export interface IReplyItem {
   content: string;
   replyContent: string;
   replyTime: string;
+}
+
+export interface IReplyInfo {
+  id: number;
+  replyContent: string;
 }
 
 export interface IGymnasiumSubscribeInfo {
