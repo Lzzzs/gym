@@ -47,6 +47,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       requiresAuth: true,
     },
+    redirect: `/admin/${adminPath.userInfo}`,
     children: [
       {
         path: adminPath.userInfo,

@@ -3,7 +3,7 @@
     <admin-page-header></admin-page-header>
     <div class="flex flex-1">
       <admin-page-sidebar></admin-page-sidebar>
-      <div>
+      <div class="flex-1">
         <RouterView />
       </div>
     </div>

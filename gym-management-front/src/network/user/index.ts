@@ -63,3 +63,10 @@ export const saveGymnasiumSubscribe = (
     data: gymnasiumSubscribeInfo,
   });
 };
+
+export const getAllUser = () => {
+  return instance<IUser[]>({
+    method: 'get',
+    url: `user/getAllUser`,
+  });
+};

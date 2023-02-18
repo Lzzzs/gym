@@ -136,8 +136,13 @@ public class UsersController {
         }
 
         return R.error(Rcode.USER_OLD_PASSWORD_ERROR);
-
     }
 
+    @GetMapping("/getAllUser")
+    public R getAllUser() {
+        QueryWrapper<Users> usersQueryWrapper = new QueryWrapper<>();
+        usersQueryWrapper.eq("role", 2);
+        return R.success(usersService.list(usersQueryWrapper));
+    }
 
 }

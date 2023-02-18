@@ -18,7 +18,7 @@ export interface IUser {
   createdTime: string;
   phone: string;
   role: '1' | '2';
-  age: number;
+  age: number | null;
 }
 
 export interface IUpdatePassword {

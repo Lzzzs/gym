@@ -79,11 +79,10 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
     }
   });
 };
-
 const successFetch = () => {
   fetchLogin(loginForm).then(({ token, refreshToken, user }) => {
     login(token, refreshToken, user);
-    user.role == '1' ? router.push('/admin') : router.push('/');
+    user.role == '1' ? router.push(`/admin`) : router.push('/');
   });
 };
 </script>
