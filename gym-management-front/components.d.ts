@@ -37,6 +37,7 @@ declare module '@vue/runtime-core' {
     GymCard: typeof import('./src/components/gym-card/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SubscribeTimeDialog: typeof import('./src/components/subscribe-time-dialog.vue')['default']
     UserPageHeader: typeof import('./src/components/user-page-header/index.vue')['default']
     UserPageLayout: typeof import('./src/components/user-page-layout.vue')['default']
     UserPagePagination: typeof import('./src/components/user-page-pagination/index.vue')['default']
