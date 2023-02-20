@@ -8,6 +8,7 @@ import {
   ILeaveWordRes,
   IReplyInfo,
   ICourseSubscribeInfo,
+  ICourseSubscribeRes,
 } from './type';
 
 const baseURl = '/user';
@@ -111,5 +112,12 @@ export const saveCourseSubscribe = (
     method: 'post',
     url: `saveCourseSubscribe`,
     data: courseSubscribeInfo,
+  });
+};
+
+export const getAllCourseSubscribe = () => {
+  return instance<ICourseSubscribeRes[]>({
+    method: 'get',
+    url: `getAllCourseSubscribe`,
   });
 };

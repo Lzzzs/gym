@@ -1,3 +1,5 @@
+import { IUser } from '@/types/user/index';
+
 export interface IGymnasiumInfoRes {
   records: IGymnasiumInfoRecords[];
   total: number;
@@ -23,6 +25,7 @@ export interface ICourseInfoRecords {
   id: number;
   img: string;
   detailText: string;
+  name: string;
 }
 
 export interface IReplyInfoRes {
@@ -61,4 +64,11 @@ export interface ICourseSubscribeInfo {
   courseId: number;
   userId: string;
   subscribeTime: string;
+}
+
+export interface ICourseSubscribeRes {
+  id: number;
+  subscribeTime: string;
+  user: IUser;
+  course: ICourseInfoRecords;
 }
