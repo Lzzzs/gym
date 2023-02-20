@@ -10,20 +10,25 @@
           label-position="left"
           :rules="rules"
           ref="registerFormRef"
+          style="min-width: 300px"
         >
           <el-form-item label="用户名" prop="username">
             <el-input v-model="registerForm.username" />
           </el-form-item>
           <el-form-item label="密码" prop="password" class="mt-6">
-            <el-input v-model="registerForm.password" type="password" />
+            <el-input
+              v-model="registerForm.password"
+              type="password"
+              show-password
+            />
           </el-form-item>
           <el-button
             @click="handleRegister(registerFormRef)"
             type="primary"
-            class="login-btn mt-3"
+            class="login-btn mt-6"
             >注册</el-button
           >
-          <div class="flex justify-between mt">
+          <div class="flex justify-between mt-10">
             <el-link :underline="false" href="/login">去登录</el-link>
           </div>
         </el-form>

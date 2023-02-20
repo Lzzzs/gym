@@ -7,13 +7,13 @@
       :rules="rules"
     >
       <el-form-item label="原密码" prop="oldPassword" :required="true">
-        <el-input v-model="passwordForm.oldPassword" type="password" />
+        <el-input v-model="passwordForm.oldPassword" type="password" show-password />
       </el-form-item>
       <el-form-item label="新密码" prop="newPassword" :required="true">
-        <el-input v-model="passwordForm.newPassword" type="password" />
+        <el-input v-model="passwordForm.newPassword" type="password" show-password />
       </el-form-item>
       <el-form-item label="确认新密码" prop="confirmPassword" :required="true">
-        <el-input v-model="passwordForm.confirmPassword" type="password" />
+        <el-input v-model="passwordForm.confirmPassword" type="password" show-password />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submit(passwordFormRef)"

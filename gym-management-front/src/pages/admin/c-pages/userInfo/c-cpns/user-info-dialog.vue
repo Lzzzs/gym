@@ -25,7 +25,11 @@
         :required="true"
         v-if="!isUpdate"
       >
-        <el-input v-model="personalForm.password" type="password" />
+        <el-input
+          v-model="personalForm.password"
+          type="password"
+          show-password
+        />
       </el-form-item>
       <el-form-item label="年龄" prop="age">
         <el-input v-model="personalForm.age" type="number" />
