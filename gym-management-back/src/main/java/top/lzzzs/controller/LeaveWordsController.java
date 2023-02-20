@@ -11,6 +11,7 @@ import top.lzzzs.service.ILeaveWordsService;
 import top.lzzzs.service.impl.LeaveWordsServiceImpl;
 import top.lzzzs.utils.DateUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -37,11 +38,11 @@ public class LeaveWordsController {
     @GetMapping("/getReplyInfoByUserId")
     public R getLeaveWord(@RequestParam("userId") String userId) {
         QueryWrapper<LeaveWords> leaveWordsQueryWrapper = new QueryWrapper<>();
-        leaveWordsQueryWrapper.eq("user_id", userId);
+        leaveWordsQueryWrapper.eq("user_id", userId).orderByDesc("reply_time").isNotNull("reply_content");
         List<LeaveWords> list = leaveWordsService.list(leaveWordsQueryWrapper);
 
         HashMap<String, Object> res = new HashMap<>();
-        HashSet<Object> l = new HashSet<>();
+        ArrayList<Object> l = new ArrayList<>();
 
         for (LeaveWords leaveWordInfo : list) {
             HashMap<String, Object> tmp = new HashMap<>();

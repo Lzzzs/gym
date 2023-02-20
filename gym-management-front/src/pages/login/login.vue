@@ -10,12 +10,17 @@
           label-position="left"
           :rules="rules"
           ref="loginFormRef"
+          style="min-width: 300px"
         >
           <el-form-item label="用户名" prop="username">
             <el-input v-model="loginForm.username" />
           </el-form-item>
           <el-form-item label="密码" prop="password" class="mt-6">
-            <el-input v-model="loginForm.password" type="password" />
+            <el-input
+              v-model="loginForm.password"
+              type="password"
+              show-password
+            />
           </el-form-item>
           <el-button
             @click="handleLogin(loginFormRef)"

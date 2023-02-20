@@ -43,9 +43,31 @@ const checkAge = (rule: any, value: any, callback: any) => {
   callback();
 };
 
+// password
+const checkOldPassword = (rule: any, value: any, callback: any) => {
+  if (!value) return callback(new Error(`请输入密码`));
+
+  callback();
+};
+
+let curPassword = '';
+const checkNewPassword = (rule: any, value: any, callback: any) => {
+  if (!value) return callback(new Error(`请输入密码`));
+  curPassword = value;
+  callback();
+};
+const checkCfPassword = (rule: any, value: any, callback: any) => {
+  if (curPassword !== value) return callback(new Error(`两次输入的密码不一致`));
+
+  callback();
+};
+
 export default {
   checkName,
   checkUserName,
   checkPhone,
   checkAge,
+  checkOldPassword,
+  checkNewPassword,
+  checkCfPassword,
 };

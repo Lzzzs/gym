@@ -38,13 +38,25 @@
         v-show="!isShowPersonalInfo"
       >
         <el-form-item label="原密码" prop="oldPassword" :required="true">
-          <el-input v-model="passwordForm.oldPassword" type="password" />
+          <el-input
+            v-model="passwordForm.oldPassword"
+            type="password"
+            show-password
+          />
         </el-form-item>
         <el-form-item label="新密码" prop="newPassword" :required="true">
-          <el-input v-model="passwordForm.newPassword" type="password" />
+          <el-input
+            v-model="passwordForm.newPassword"
+            type="password"
+            show-password
+          />
         </el-form-item>
         <el-form-item label="确认密码" prop="confirmPassword" :required="true">
-          <el-input v-model="passwordForm.confirmPassword" type="password" />
+          <el-input
+            v-model="passwordForm.confirmPassword"
+            type="password"
+            show-password
+          />
         </el-form-item>
         <el-form-item class="mt-5">
           <el-button @click="savePasswords(passwordFormRef)">保存</el-button>

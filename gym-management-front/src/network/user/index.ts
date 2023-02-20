@@ -7,6 +7,7 @@ import {
   IGymnasiumSubscribeInfo,
   ILeaveWordRes,
   IReplyInfo,
+  ICourseSubscribeInfo,
 } from './type';
 
 const baseURl = '/user';
@@ -100,5 +101,15 @@ export const replyLeaveWord = (replyInfo: IReplyInfo) => {
     method: 'post',
     url: `replyLeaveWord`,
     data: replyInfo,
+  });
+};
+
+export const saveCourseSubscribe = (
+  courseSubscribeInfo: ICourseSubscribeInfo
+) => {
+  return instance({
+    method: 'post',
+    url: `saveCourseSubscribe`,
+    data: courseSubscribeInfo,
   });
 };

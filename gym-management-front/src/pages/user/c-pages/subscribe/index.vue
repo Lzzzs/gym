@@ -22,7 +22,6 @@
 
 <script setup lang="ts">
 import Cards from '@/components/gym-card/container.vue';
-import subscribeTimeDialog from './c-cpns/subscribe-time-dialog.vue';
 import { ICardInfo } from '@/types/user/index';
 import { getGymnasiumInfo, saveGymnasiumSubscribe } from '@/network/user/index';
 import {
