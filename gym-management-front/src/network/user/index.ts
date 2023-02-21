@@ -37,7 +37,7 @@ export const addLeaveWord = (leaveWordInfo: ILeaveWord) => {
   });
 };
 
-export const getGymnasiumInfo = (page: number, limit: number) => {
+export const getGymnasiumInfo = (page: number = 1, limit: number = 4) => {
   return instance<IGymnasiumInfoRes>({
     method: 'get',
     url: `getGymnasiumInfo?page=${page}&limit=${limit}`,
