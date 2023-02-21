@@ -40,38 +40,59 @@ public class GymnasiumController {
 
     @GetMapping("/getGymnasiumInfo")
     public R getGymnasiumInfo(@RequestParam("page") int page, @RequestParam("limit") int limit) {
+        // 数据过期了 更新is_done 为1
+        //  subscribe_time < curTime
         QueryWrapper<GymnasiumSubscribe> gymnasiumSubscribeQueryWrapper = new QueryWrapper<>();
         gymnasiumSubscribeQueryWrapper.lt("subscribe_time", new Date().getTime()).ne("is_done", 1);
         List<GymnasiumSubscribe> list = gymnasiumSubscribeMapper.selectList(gymnasiumSubscribeQueryWrapper);
-
-        HashSet<Integer> gymnasiumIdList = new HashSet<>();
-
-        // 更新is_done
         for (GymnasiumSubscribe gymnasiumSubscribe : list) {
-            gymnasiumIdList.add(gymnasiumSubscribe.getGymnasiumId());
             UpdateWrapper<GymnasiumSubscribe> gymnasiumSubscribeUpdateWrapper = new UpdateWrapper<>();
+            if (gymnasiumSubscribe.getIng() == 1) {
+                // ing为1说明，curnum加过1，那么这条数据过期了，curnum应该减一
+                changeCurNum(gymnasiumSubscribe.getGymnasiumId(), 0);
+                gymnasiumSubscribeUpdateWrapper.set("ing", 0);
+            }
             gymnasiumSubscribeUpdateWrapper.eq("id", gymnasiumSubscribe.getId()).set("is_done", 1);
             gymnasiumSubscribeMapper.update(null, gymnasiumSubscribeUpdateWrapper);
         }
 
-        // gymnasium curnum - 1
-        for (Integer id : gymnasiumIdList) {
-            UpdateWrapper<Gymnasium> gymnasiumUpdateWrapper = new UpdateWrapper<>();
-            Gymnasium gym = gymnasiumService.getById(id);
-            gymnasiumUpdateWrapper.set("curnum", gym.getCurnum() - 1).eq("id", id);
-            gymnasiumService.update(null, gymnasiumUpdateWrapper);
+        // subscribe_time_start < curTime < subscribe_time
+        QueryWrapper<GymnasiumSubscribe> gymnasiumSubscribeQueryWrapper1 = new QueryWrapper<>();
+        gymnasiumSubscribeQueryWrapper1.lt("subscribe_time_start", new Date().getTime()).gt("subscribe_time", new Date().getTime()).ne("is_done", 1);
+        List<GymnasiumSubscribe> midList = gymnasiumSubscribeMapper.selectList(gymnasiumSubscribeQueryWrapper1);
+        ArrayList<Integer> gymids = new ArrayList();
+        for (GymnasiumSubscribe gymnasiumSubscribe : midList) {
+            Integer ing = gymnasiumSubscribe.getIng();
+            if (ing == 0) {
+                UpdateWrapper<GymnasiumSubscribe> gymnasiumSubscribeUpdateWrapper = new UpdateWrapper<>();
+                gymnasiumSubscribeUpdateWrapper.eq("id", gymnasiumSubscribe.getId()).set("ing", 1);
+                gymnasiumSubscribeMapper.update(null, gymnasiumSubscribeUpdateWrapper);
+                gymids.add(gymnasiumSubscribe.getGymnasiumId());
+            }
+        }
+        for (Integer id : gymids) {
+            changeCurNum(id, 1);
         }
 
-
+        // 获取健身房分页数据
         QueryWrapper<Gymnasium> queryWrapper = new QueryWrapper<>();
         Page<Gymnasium> gymnasiumPage = new Page<>(page, limit);
-
         Page<Gymnasium> gymnasiumModel = gymnasiumMapper.selectPage(gymnasiumPage, queryWrapper);
-
         HashMap<String, Object> resMap = new HashMap<>();
         resMap.put("total", gymnasiumModel.getTotal());
         resMap.put("records", gymnasiumModel.getRecords());
 
         return R.success(resMap);
+    }
+
+    void changeCurNum(Integer id, Integer type) {
+        UpdateWrapper<Gymnasium> gymnasiumUpdateWrapper = new UpdateWrapper<>();
+        Gymnasium gym = gymnasiumService.getById(id);
+        if (type == 1) {
+            gymnasiumUpdateWrapper.set("curnum", gym.getCurnum() + 1).eq("id", id);
+        } else {
+            gymnasiumUpdateWrapper.set("curnum", gym.getCurnum() - 1).eq("id", id);
+        }
+        gymnasiumService.update(null, gymnasiumUpdateWrapper);
     }
 }

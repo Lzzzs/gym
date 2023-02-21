@@ -3,17 +3,20 @@ package top.lzzzs.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author lzzzs
  * @since 2023-02-16
  */
 @TableName("gymnasium_subscribe")
+@Data
 public class GymnasiumSubscribe implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,50 +47,14 @@ public class GymnasiumSubscribe implements Serializable {
      */
     private Integer isDone;
 
-    public Integer getId() {
-        return id;
-    }
+    /**
+     * 预约开始时间
+     */
+    private String subscribeTimeStart;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    public Integer getGymnasiumId() {
-        return gymnasiumId;
-    }
+    /**
+     * 当前订阅是否正在进行中
+     */
+    private Integer ing;
 
-    public void setGymnasiumId(Integer gymnasiumId) {
-        this.gymnasiumId = gymnasiumId;
-    }
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-    public String getSubscribeTime() {
-        return subscribeTime;
-    }
-
-    public void setSubscribeTime(String subscribeTime) {
-        this.subscribeTime = subscribeTime;
-    }
-    public Integer getIsDone() {
-        return isDone;
-    }
-
-    public void setIsDone(Integer isDone) {
-        this.isDone = isDone;
-    }
-
-    @Override
-    public String toString() {
-        return "GymnasiumSubscribe{" +
-            "id=" + id +
-            ", gymnasiumId=" + gymnasiumId +
-            ", userId=" + userId +
-            ", subscribeTime=" + subscribeTime +
-            ", isDone=" + isDone +
-        "}";
-    }
 }

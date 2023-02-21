@@ -58,6 +58,7 @@ export interface IGymnasiumSubscribeInfo {
   gymnasiumId: number;
   userId: string;
   subscribeTime: string;
+  subscribeTimeStart: string;
 }
 
 export interface ICourseSubscribeInfo {

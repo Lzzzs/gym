@@ -56,6 +56,7 @@ const confirmSubscribe = (subscribeTimeForm: { time: string[] }) => {
   const currentUser = getCurrentUser()!;
   const submitForm: IGymnasiumSubscribeInfo = {
     subscribeTime: subscribeTimeForm.time[1],
+    subscribeTimeStart: subscribeTimeForm.time[0],
     userId: currentUser.id,
     gymnasiumId: currentCardId.value,
   };

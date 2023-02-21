@@ -35,15 +35,6 @@ public class GymnasiumSubscribeController {
 
     @PostMapping("/saveGymnasiumSubscribe")
     public R subscribe(@RequestBody GymnasiumSubscribe gymnasiumSubscribe) {
-        boolean is = gymnasiumSubscribeService.save(gymnasiumSubscribe);
-        if (is) {
-            UpdateWrapper<Gymnasium> gymnasiumUpdateWrapper = new UpdateWrapper<>();
-            Gymnasium gym = gymnasiumService.getById(gymnasiumSubscribe.getGymnasiumId());
-            gymnasiumUpdateWrapper.set("curnum", gym.getCurnum() + 1).eq("id", gymnasiumSubscribe.getGymnasiumId());
-            gymnasiumService.update(null, gymnasiumUpdateWrapper);
-            return R.success(null);
-        }
-
-        return R.error(Rcode.DATA_IS_WRONG);
+        return R.success(gymnasiumSubscribeService.save(gymnasiumSubscribe));
     }
 }
