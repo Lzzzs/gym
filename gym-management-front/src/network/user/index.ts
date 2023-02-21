@@ -121,3 +121,10 @@ export const getAllCourseSubscribe = () => {
     url: `getAllCourseSubscribe`,
   });
 };
+
+export const deleteCourseSubscribe = (id: number) => {
+  return instance({
+    method: 'delete',
+    url: `deleteCourseSubscribe/${id}`,
+  });
+};

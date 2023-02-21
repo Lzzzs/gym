@@ -18,6 +18,6 @@
         from users u
                  right join (select cs.id, cs.subscribe_time, c.img, c.detail_text, c.name, cs.user_id
                              from course_subscribe cs
-                                      left join course c on cs.course_id = c.id) cb on cb.user_id = u.id
+                                      left join course c on cs.course_id = c.id where cs.is_done = 0) cb on cb.user_id = u.id
     </select>
 </mapper>

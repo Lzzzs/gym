@@ -40,4 +40,11 @@ public class CourseSubscribeController {
     public R getAllCourseSubscribe() {
         return R.success(courseSubscribeService.getAllCourseSubscribe());
     }
+
+    @DeleteMapping("deleteCourseSubscribe/{id}")
+    public R deleteCourseSubscribe(@PathVariable("id") String id) {
+        UpdateWrapper<CourseSubscribe> subscribeUpdateWrapper = new UpdateWrapper<>();
+        subscribeUpdateWrapper.eq("id", id).set("is_done", 1);
+        return R.success(courseSubscribeService.update(null, subscribeUpdateWrapper));
+    }
 }
