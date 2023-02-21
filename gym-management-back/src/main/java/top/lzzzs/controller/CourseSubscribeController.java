@@ -3,12 +3,9 @@ package top.lzzzs.controller;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 import top.lzzzs.common.R;
 import top.lzzzs.common.Rcode;
 import top.lzzzs.entity.Course;
@@ -37,5 +34,17 @@ public class CourseSubscribeController {
     @PostMapping("/saveCourseSubscribe")
     public R saveCourseSubscribe(@RequestBody CourseSubscribe courseSubscribe) {
         return R.success(courseSubscribeService.save(courseSubscribe));
+    }
+
+    @GetMapping("/getAllCourseSubscribe")
+    public R getAllCourseSubscribe() {
+        return R.success(courseSubscribeService.getAllCourseSubscribe());
+    }
+
+    @DeleteMapping("deleteCourseSubscribe/{id}")
+    public R deleteCourseSubscribe(@PathVariable("id") String id) {
+        UpdateWrapper<CourseSubscribe> subscribeUpdateWrapper = new UpdateWrapper<>();
+        subscribeUpdateWrapper.eq("id", id).set("is_done", 1);
+        return R.success(courseSubscribeService.update(null, subscribeUpdateWrapper));
     }
 }

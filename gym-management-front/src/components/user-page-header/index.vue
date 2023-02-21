@@ -3,13 +3,27 @@
     <div>logo</div>
     <ul class="items flex">
       <li
-        v-for="{ name, to } in headerItems"
+        v-for="{ name, to, list } in headerItems"
         :key="name"
         class="cursor-pointer ml-6"
-        @click="toPath(to)"
-        :class="curPath === to ? 'active' : ''"
+        @click="toPath(to, list)"
+        :class="isActive(to)"
       >
-        {{ name }}
+        <span v-if="!list">{{ name }}</span>
+        <el-dropdown v-else>
+          <span style="font-size: 16px">
+            {{ name }}
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item
+                v-for="{ name, to } in list"
+                @click="dropdownItemClick(to)"
+                >{{ name }}</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </li>
     </ul>
   </div>
@@ -25,9 +39,21 @@ const route = useRoute();
 // substring 是为了去掉前缀/
 const curPath = ref<UserPathType>(route.path.substring(1) as UserPathType);
 
-const toPath = (to: UserPathType) => {
+const isActive = computed(() => {
+  return (to: UserPathType) => {
+    const baseClass = 'flex items-center';
+    return curPath.value === to ? `active ${baseClass}` : `${baseClass}`;
+  };
+});
+
+const toPath = (to: UserPathType, list: any) => {
+  if (list) return;
   router.push(to);
   curPath.value = to;
+};
+const dropdownItemClick = (to: UserPathType) => {
+  router.push(to);
+  curPath.value = 'muscleBuilding';
 };
 </script>
 
@@ -42,8 +68,10 @@ const toPath = (to: UserPathType) => {
       color: #525252;
     }
     .active {
-      color: #000;
-      font-weight: bold;
+      span {
+        color: #000;
+        font-weight: bold;
+      }
     }
   }
 }

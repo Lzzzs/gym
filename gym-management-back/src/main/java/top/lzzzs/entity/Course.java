@@ -2,6 +2,8 @@ package top.lzzzs.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +14,7 @@ import java.io.Serializable;
  * @author lzzzs
  * @since 2023-02-16
  */
+@Data
 public class Course implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,34 +35,9 @@ public class Course implements Serializable {
      */
     private String detailText;
 
-    public Integer getId() {
-        return id;
-    }
+    /**
+     * 课程名
+     */
+    private String name;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-    public String getDetailText() {
-        return detailText;
-    }
-
-    public void setDetailText(String detailText) {
-        this.detailText = detailText;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-            "id=" + id +
-            ", img=" + img +
-            ", detailText=" + detailText +
-        "}";
-    }
 }

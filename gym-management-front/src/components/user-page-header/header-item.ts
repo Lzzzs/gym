@@ -1,8 +1,11 @@
 import { UserPathType } from '@/router/routes';
 
-export interface IHeaderItems {
+export interface IHeaderItem {
   name: string;
   to: UserPathType;
+}
+export interface IHeaderItems extends IHeaderItem {
+  list?: IHeaderItem[];
 }
 export const headerItems: IHeaderItems[] = [
   {
@@ -19,7 +22,21 @@ export const headerItems: IHeaderItems[] = [
   },
   {
     name: '健身计划查询',
-    to: 'plan',
+    to: 'muscleBuilding',
+    list: [
+      {
+        name: '增肌计划',
+        to: 'muscleBuilding',
+      },
+      {
+        name: '减脂计划',
+        to: 'fatReduction',
+      },
+      {
+        name: '私人订制计划',
+        to: 'privateCustom',
+      },
+    ],
   },
   {
     name: '动作库',

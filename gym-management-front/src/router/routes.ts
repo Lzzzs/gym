@@ -1,18 +1,14 @@
 import { RouteRecordRaw } from 'vue-router';
 
-export type UserPathType =
-  | 'subscribe'
-  | 'course'
-  | 'consult'
-  | 'plan'
-  | 'actionLibrary'
-  | 'personal';
+export type UserPathType = keyof typeof userPath;
 
-export const userPath: { [k in UserPathType]: string } = {
+export const userPath = {
   subscribe: '/subscribe',
   course: '/course',
   consult: '/consult',
-  plan: '/plan',
+  muscleBuilding: '/muscleBuilding',
+  fatReduction: '/fatReduction',
+  privateCustom: '/privateCustom',
   actionLibrary: '/actionLibrary',
   personal: '/personal',
 };
@@ -116,8 +112,23 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
-        path: userPath.plan,
-        component: () => import('@/pages/user/c-pages/plan/index.vue'),
+        path: userPath.muscleBuilding,
+        component: () =>
+          import('@/pages/user/c-pages/plan/muscle-building.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: userPath.fatReduction,
+        component: () => import('@/pages/user/c-pages/plan/fat-reduction.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: userPath.privateCustom,
+        component: () => import('@/pages/user/c-pages/plan/private-custom.vue'),
         meta: {
           requiresAuth: true,
         },

@@ -3,6 +3,8 @@ package top.lzzzs.mapper;
 import top.lzzzs.entity.CourseSubscribe;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2023-02-20
  */
 public interface CourseSubscribeMapper extends BaseMapper<CourseSubscribe> {
-
+    List<CourseSubscribe> getAllCourseSubscribe();
 }

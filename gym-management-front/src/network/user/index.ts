@@ -8,6 +8,7 @@ import {
   ILeaveWordRes,
   IReplyInfo,
   ICourseSubscribeInfo,
+  ICourseSubscribeRes,
 } from './type';
 
 const baseURl = '/user';
@@ -36,7 +37,7 @@ export const addLeaveWord = (leaveWordInfo: ILeaveWord) => {
   });
 };
 
-export const getGymnasiumInfo = (page: number, limit: number) => {
+export const getGymnasiumInfo = (page: number = 1, limit: number = 4) => {
   return instance<IGymnasiumInfoRes>({
     method: 'get',
     url: `getGymnasiumInfo?page=${page}&limit=${limit}`,
@@ -111,5 +112,19 @@ export const saveCourseSubscribe = (
     method: 'post',
     url: `saveCourseSubscribe`,
     data: courseSubscribeInfo,
+  });
+};
+
+export const getAllCourseSubscribe = () => {
+  return instance<ICourseSubscribeRes[]>({
+    method: 'get',
+    url: `getAllCourseSubscribe`,
+  });
+};
+
+export const deleteCourseSubscribe = (id: number) => {
+  return instance({
+    method: 'delete',
+    url: `deleteCourseSubscribe/${id}`,
   });
 };
