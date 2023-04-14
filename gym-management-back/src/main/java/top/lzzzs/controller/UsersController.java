@@ -83,6 +83,10 @@ public class UsersController {
         users.setUsername(registerInfo.getUsername());
         users.setPassword(DigestUtils.md5DigestAsHex(registerInfo.getPassword().getBytes()));
         users.setCreatedTime(DateUtil.createdTime());
+        users.setName(registerInfo.getName());
+        users.setAddress(registerInfo.getAddress());
+        users.setAge(registerInfo.getAge());
+        users.setPhone(registerInfo.getPhone());
         // 默认只能注册用户，不能注册管理员
         users.setRole(2);
         users.setName(registerInfo.getUsername());

@@ -14,7 +14,6 @@
     <el-form
       :model="customForm"
       label-width="100px"
-      style="min-width: 460px"
       ref="customFormRef"
       :rules="rules"
     >
@@ -34,7 +33,7 @@
       </el-form-item>
       <el-form-item label="身高" prop="height">
         <el-input v-model="customForm.height" type="number">
-          <template #append>m</template></el-input
+          <template #append>cm</template></el-input
         >
       </el-form-item>
       <el-form-item label="体重" prop="weight">
@@ -48,6 +47,7 @@
         <el-button type="primary" @click="handleConfirm(customFormRef)">
           确认
         </el-button>
+        <el-button @click="handleCancel()"> 取消 </el-button>
       </span>
     </template>
   </el-dialog>
@@ -90,7 +90,7 @@ const handleConfirm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid) => {
     if (valid) {
-      const res = BMI(customForm.height, customForm.weight);
+      const res = BMI(customForm.height / 100, customForm.weight);
       if (res >= 20) {
         img.value = fat;
       } else {
@@ -99,6 +99,10 @@ const handleConfirm = async (formEl: FormInstance | undefined) => {
       dialogVisible.value = false;
     }
   });
+};
+
+const handleCancel = () => {
+  dialogVisible.value = false;
 };
 
 function BMI(height: number, weight: number): number {

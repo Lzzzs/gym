@@ -11,6 +11,7 @@ export const userPath = {
   privateCustom: '/privateCustom',
   actionLibrary: '/actionLibrary',
   personal: '/personal',
+  index: '/index',
 };
 
 export type AdminPathType =
@@ -88,8 +89,15 @@ const routes: RouteRecordRaw[] = [
     meta: {
       requiresAuth: true,
     },
-    redirect: userPath.subscribe,
+    redirect: userPath.index,
     children: [
+      {
+        path: userPath.index,
+        component: () => import('@/pages/user/c-pages/index/index.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
       {
         path: userPath.subscribe,
         component: () => import('@/pages/user/c-pages/subscribe/index.vue'),

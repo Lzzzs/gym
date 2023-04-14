@@ -8,7 +8,12 @@ export interface ILoginForm extends IUserInfo {
   role: '1' | '2' | '';
 }
 
-export interface IRegisterForm extends IUserInfo {}
+export interface IRegisterForm extends IUserInfo {
+  name: string;
+  age: number;
+  phone: string;
+  address: string;
+}
 
 export interface IRefreshToken {
   loginInfo: { username: string };

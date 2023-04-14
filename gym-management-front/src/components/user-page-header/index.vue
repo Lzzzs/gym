@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import { logout } from '@/utils/loginUtil';
 import { headerItems } from './header-item';
 import { UserPathType } from '@/router/routes';
 
@@ -40,18 +41,25 @@ const route = useRoute();
 const curPath = ref<UserPathType>(route.path.substring(1) as UserPathType);
 
 const isActive = computed(() => {
-  return (to: UserPathType) => {
+  return (to: UserPathType | null) => {
     const baseClass = 'flex items-center';
     return curPath.value === to ? `active ${baseClass}` : `${baseClass}`;
   };
 });
 
-const toPath = (to: UserPathType, list: any) => {
+const toPath = (to: UserPathType | null, list: any) => {
   if (list) return;
+  if (to === null) {
+    logout();
+    router.push('login');
+    return;
+  }
+
   router.push(to);
   curPath.value = to;
 };
-const dropdownItemClick = (to: UserPathType) => {
+const dropdownItemClick = (to: UserPathType | null) => {
+  if (to === null) return;
   router.push(to);
   curPath.value = 'muscleBuilding';
 };
