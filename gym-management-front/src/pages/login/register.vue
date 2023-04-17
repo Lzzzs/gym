@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen">
-    <div class="login-page flexc h-screen">
+    <div class="register-page flexc h-screen">
       <div
         class="login-form p-10 b border-black border-rd-4 max-w-xl border-base"
       >
@@ -22,6 +22,18 @@
               show-password
             />
           </el-form-item>
+          <el-form-item label="姓名" prop="name">
+            <el-input v-model="registerForm.name" />
+          </el-form-item>
+          <el-form-item label="年龄" prop="age">
+            <el-input v-model="registerForm.age" type="number" />
+          </el-form-item>
+          <el-form-item label="电话号码" prop="phone">
+            <el-input v-model="registerForm.phone" type="phone" />
+          </el-form-item>
+          <el-form-item label="地址" prop="address">
+            <el-input v-model="registerForm.address" />
+          </el-form-item>
           <el-button
             @click="handleRegister(registerFormRef)"
             type="primary"
@@ -29,7 +41,9 @@
             >注册</el-button
           >
           <div class="flex justify-between mt-10">
-            <el-link :underline="false" href="/login">去登录</el-link>
+            <el-link :underline="false" href="/login" style="color: #fff"
+              >去登录</el-link
+            >
           </div>
         </el-form>
       </div>
@@ -41,6 +55,8 @@
 import { FormRules, FormInstance, ElMessage } from 'element-plus';
 import { fetchRegister } from '@/network/login/index';
 import type { IRegisterForm } from '@/types/login/index';
+import validator from '@/validator/index';
+
 import router from '@/router';
 
 const registerFormRef = ref<FormInstance>();
@@ -48,6 +64,10 @@ const registerFormRef = ref<FormInstance>();
 const registerForm = reactive<IRegisterForm>({
   username: '',
   password: '',
+  name: '',
+  age: 0,
+  phone: '',
+  address: '',
 });
 
 const rules = reactive<FormRules>({
@@ -56,6 +76,9 @@ const rules = reactive<FormRules>({
     { min: 5, message: '用户名的长度不能少于5位', trigger: 'change' },
   ],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  name: [{ validator: validator.checkName, trigger: 'change' }],
+  age: [{ validator: validator.checkAge, trigger: 'change' }],
+  phone: [{ validator: validator.checkPhone, trigger: 'change' }],
 });
 
 const handleRegister = async (formEl: FormInstance | undefined) => {
@@ -72,6 +95,14 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
 </script>
 
 <style lang="less" scoped>
+.register-page {
+  background-image: url('@/assets/images/register.jpeg');
+  background-size: 100%;
+
+  :deep(.el-form-item__label) {
+    color: #fff !important;
+  }
+}
 .login-btn {
   width: 100%;
 }

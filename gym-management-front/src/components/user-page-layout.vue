@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-32 mr-32">
+  <div class="pl-32 pr-32">
     <user-page-title :title="title"></user-page-title>
     <slot></slot>
   </div>

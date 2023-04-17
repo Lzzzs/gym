@@ -6,7 +6,7 @@ import {
 } from './resInterceptors';
 
 export const instance = axios.create({
-  baseURL: 'http://127.0.0.1:5173/api',
+  baseURL: 'http://localhost:8080/api',
   timeout: 10000,
 });
 

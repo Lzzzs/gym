@@ -57,4 +57,6 @@ public class LeaveWords implements Serializable {
      */
     private String replyTime;
 
+    private Boolean isRead;
+
 }

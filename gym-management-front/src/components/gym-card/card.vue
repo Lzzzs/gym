@@ -9,7 +9,7 @@
         style="width: 100%"
       />
 
-      <ul class="card-detail mt-5 mb-5" v-if="cardInfo?.detailList">
+      <ul class="card-detail mt-5 mb-5 c-white" v-if="cardInfo?.detailList">
         <li v-for="list in cardInfo!.detailList">
           {{ list.name }}: {{ list.value }}
         </li>

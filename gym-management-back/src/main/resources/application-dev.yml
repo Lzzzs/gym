@@ -4,6 +4,6 @@ spring:
     username: root
     password: 15070181343
     driver-class-name: com.mysql.cj.jdbc.Driver
-#resources-url:
-#  base-url: http://localhost:8888/static/
-#  image-out-url: src/main/resources/static/note-img/
+resources-url:
+  base-url: http://localhost:8888/static/
+  image-out-url: src/main/resources/static/imgs/

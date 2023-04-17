@@ -128,3 +128,13 @@ export const deleteCourseSubscribe = (id: number) => {
     url: `deleteCourseSubscribe/${id}`,
   });
 };
+
+export const changeReadStatus = (userId: string) => {
+  return instance({
+    method: 'post',
+    url: `changeReadStatus`,
+    data: {
+      userId,
+    },
+  });
+};

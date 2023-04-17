@@ -1,6 +1,8 @@
 <template>
   <div class="user-page-header flex items-center justify-between pl-32 pr-32">
-    <div>logo</div>
+    <div>
+      <img class="logo" src="@/assets/images/logo.jpg" />
+    </div>
     <ul class="items flex">
       <li
         v-for="{ name, to, list } in headerItems"
@@ -30,6 +32,7 @@
 </template>
 
 <script setup lang="ts">
+import { logout } from '@/utils/loginUtil';
 import { headerItems } from './header-item';
 import { UserPathType } from '@/router/routes';
 
@@ -40,28 +43,48 @@ const route = useRoute();
 const curPath = ref<UserPathType>(route.path.substring(1) as UserPathType);
 
 const isActive = computed(() => {
-  return (to: UserPathType) => {
+  return (to: UserPathType | null) => {
     const baseClass = 'flex items-center';
     return curPath.value === to ? `active ${baseClass}` : `${baseClass}`;
   };
 });
 
-const toPath = (to: UserPathType, list: any) => {
+const toPath = (to: UserPathType | null, list: any) => {
   if (list) return;
+  if (to === null) {
+    logout();
+    router.push('login');
+    return;
+  }
+
   router.push(to);
   curPath.value = to;
 };
-const dropdownItemClick = (to: UserPathType) => {
+const dropdownItemClick = (to: UserPathType | null) => {
+  if (to === null) return;
   router.push(to);
   curPath.value = 'muscleBuilding';
 };
+
+watch(
+  () => route.path,
+  (path) => {
+    curPath.value = path.substring(1) as UserPathType;
+  }
+);
 </script>
 
 <style lang="less" scoped>
 .user-page-header {
   min-width: 1024px;
-  background-color: #a3a2a3;
+  background-color: #737373;
   height: 60px;
+
+  .logo {
+    width: 90px;
+    height: 55px;
+    margin-top: 2.5px;
+  }
 
   .items {
     li {
