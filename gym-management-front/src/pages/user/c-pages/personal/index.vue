@@ -11,19 +11,36 @@
         v-show="isShowPersonalInfo"
       >
         <el-form-item label="姓名" prop="name" :required="true">
-          <el-input v-model="personalForm.name" />
+          <el-input
+            v-model="personalForm.name"
+            :disabled="disabledPersonalInfo"
+          />
         </el-form-item>
         <el-form-item label="年龄" prop="age">
-          <el-input v-model="personalForm.age" type="number" />
+          <el-input
+            v-model="personalForm.age"
+            type="number"
+            :disabled="disabledPersonalInfo"
+          />
         </el-form-item>
         <el-form-item label="电话号码" prop="phone">
-          <el-input v-model="personalForm.phone" type="phone" />
+          <el-input
+            v-model="personalForm.phone"
+            type="phone"
+            :disabled="disabledPersonalInfo"
+          />
         </el-form-item>
         <el-form-item label="地址" prop="address">
-          <el-input v-model="personalForm.address" />
+          <el-input
+            v-model="personalForm.address"
+            :disabled="disabledPersonalInfo"
+          />
         </el-form-item>
         <el-form-item class="mt-5">
           <el-button @click="savePersonal(personalFormRef)">保存</el-button>
+          <el-button @click="disabledPersonalInfo = !disabledPersonalInfo"
+            >修改信息</el-button
+          >
           <el-button @click="isShowPersonalInfo = false">修改密码</el-button>
         </el-form-item>
       </el-form>
@@ -60,7 +77,13 @@
         </el-form-item>
         <el-form-item class="mt-5">
           <el-button @click="savePasswords(passwordFormRef)">保存</el-button>
-          <el-button @click="isShowPersonalInfo = true">修改个人信息</el-button>
+          <el-button
+            @click="
+              isShowPersonalInfo = true;
+              disabledPersonalInfo = true;
+            "
+            >修改个人信息</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -77,6 +100,7 @@ import { IPersonalForm } from './type';
 import { IUpdatePassword } from '@/types/user/index';
 
 const isShowPersonalInfo = ref(true);
+const disabledPersonalInfo = ref(true);
 
 const personalFormRef = ref<FormInstance>();
 const passwordFormRef = ref<FormInstance>();
