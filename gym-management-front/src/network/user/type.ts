@@ -47,6 +47,7 @@ export interface IReplyItem {
   content: string;
   replyContent: string;
   replyTime: string;
+  isRead: boolean;
 }
 
 export interface IReplyInfo {

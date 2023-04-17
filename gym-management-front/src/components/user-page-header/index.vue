@@ -1,6 +1,8 @@
 <template>
   <div class="user-page-header flex items-center justify-between pl-32 pr-32">
-    <div>logo</div>
+    <div>
+      <img class="logo" src="@/assets/images/logo.jpg" />
+    </div>
     <ul class="items flex">
       <li
         v-for="{ name, to, list } in headerItems"
@@ -63,13 +65,26 @@ const dropdownItemClick = (to: UserPathType | null) => {
   router.push(to);
   curPath.value = 'muscleBuilding';
 };
+
+watch(
+  () => route.path,
+  (path) => {
+    curPath.value = path.substring(1) as UserPathType;
+  }
+);
 </script>
 
 <style lang="less" scoped>
 .user-page-header {
   min-width: 1024px;
-  background-color: #a3a2a3;
+  background-color: #737373;
   height: 60px;
+
+  .logo {
+    width: 90px;
+    height: 55px;
+    margin-top: 2.5px;
+  }
 
   .items {
     li {

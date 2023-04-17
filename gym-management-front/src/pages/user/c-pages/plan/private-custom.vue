@@ -16,6 +16,7 @@
       label-width="100px"
       ref="customFormRef"
       :rules="rules"
+      class="custom-form"
     >
       <el-form-item label="姓名" prop="name">
         <el-input v-model="customForm.name" />
@@ -110,4 +111,10 @@ function BMI(height: number, weight: number): number {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.custom-form {
+  :deep(.el-form-item__label) {
+    color: #000 !important;
+  }
+}
+</style>

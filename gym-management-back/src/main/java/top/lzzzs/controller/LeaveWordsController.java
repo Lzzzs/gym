@@ -11,10 +11,7 @@ import top.lzzzs.service.ILeaveWordsService;
 import top.lzzzs.service.impl.LeaveWordsServiceImpl;
 import top.lzzzs.utils.DateUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -49,6 +46,7 @@ public class LeaveWordsController {
             tmp.put("content", leaveWordInfo.getContent());
             tmp.put("replyContent", leaveWordInfo.getReplyContent());
             tmp.put("replyTime", leaveWordInfo.getReplyTime());
+            tmp.put("isRead", leaveWordInfo.getIsRead());
             l.add(tmp);
         }
         res.put("list", l);
@@ -82,6 +80,13 @@ public class LeaveWordsController {
     public R replyLeaveWord(@RequestBody LeaveWords leaveWordInfo) {
         UpdateWrapper<LeaveWords> leaveWordsUpdateWrapper = new UpdateWrapper<>();
         leaveWordsUpdateWrapper.eq("id", leaveWordInfo.getId()).set("reply_content", leaveWordInfo.getReplyContent()).set("reply_time", DateUtil.createdTime());
+        return R.success(leaveWordsService.update(leaveWordsUpdateWrapper));
+    }
+
+    @PostMapping("/changeReadStatus")
+    public R changeReadStatus(@RequestBody Map<String, String> map) {
+        UpdateWrapper<LeaveWords> leaveWordsUpdateWrapper = new UpdateWrapper<>();
+        leaveWordsUpdateWrapper.eq("user_id", map.get("userId")).isNotNull("reply_time").set("is_read", 1);
         return R.success(leaveWordsService.update(leaveWordsUpdateWrapper));
     }
 }

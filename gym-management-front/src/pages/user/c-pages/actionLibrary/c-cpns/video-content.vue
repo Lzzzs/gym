@@ -1,5 +1,5 @@
 <template>
-  <div class="video-content-title">{{ title }}</div>
+  <div class="video-content-title c-white">{{ title }}</div>
   <el-scrollbar>
     <div class="flex my-5">
       <div v-for="(item, index) in videos" :key="index">

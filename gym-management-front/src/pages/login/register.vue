@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen">
-    <div class="login-page flexc h-screen">
+    <div class="register-page flexc h-screen">
       <div
         class="login-form p-10 b border-black border-rd-4 max-w-xl border-base"
       >
@@ -41,7 +41,9 @@
             >注册</el-button
           >
           <div class="flex justify-between mt-10">
-            <el-link :underline="false" href="/login">去登录</el-link>
+            <el-link :underline="false" href="/login" style="color: #fff"
+              >去登录</el-link
+            >
           </div>
         </el-form>
       </div>
@@ -93,6 +95,14 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
 </script>
 
 <style lang="less" scoped>
+.register-page {
+  background-image: url('@/assets/images/register.jpeg');
+  background-size: 100%;
+
+  :deep(.el-form-item__label) {
+    color: #fff !important;
+  }
+}
 .login-btn {
   width: 100%;
 }

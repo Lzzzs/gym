@@ -2,7 +2,7 @@
   <div class="h-screen">
     <div class="login-page flexc h-screen">
       <div
-        class="login-form p-10 b border-black border-rd-4 max-w-xl border-base"
+        class="login-form p-10 b border-white border-rd-4 max-w-xl border-base"
       >
         <el-form
           :model="loginForm"
@@ -12,7 +12,7 @@
           ref="loginFormRef"
           style="min-width: 300px"
         >
-          <el-form-item label="用户名" prop="username">
+          <el-form-item label="用户名" prop="username" style="color: #fff">
             <el-input v-model="loginForm.username" />
           </el-form-item>
           <el-form-item label="密码" prop="password" class="mt-6">
@@ -33,12 +33,14 @@
             class="flex justify-between mt"
             style="width: 100%"
           >
-            <el-radio label="2">用户</el-radio>
-            <el-radio label="1">管理员</el-radio>
+            <el-radio label="2" style="color: #fff">用户</el-radio>
+            <el-radio label="1" style="color: #fff">管理员</el-radio>
           </el-radio-group>
-          <div class="flex justify-between mt">
-            <el-link :underline="false">忘记密码</el-link>
-            <el-link :underline="false" href="/register">注册</el-link>
+          <div class="flex justify-between mt" style="color: #fff">
+            <el-link :underline="false" style="color: #fff">忘记密码</el-link>
+            <el-link :underline="false" href="/register" style="color: #fff"
+              >注册</el-link
+            >
           </div>
         </el-form>
       </div>
@@ -93,6 +95,14 @@ const successFetch = () => {
 </script>
 
 <style lang="less" scoped>
+.login-page {
+  background-image: url('@/assets/images/login.jpeg');
+  background-size: 100%;
+
+  :deep(.el-form-item__label) {
+    color: #fff !important;
+  }
+}
 .login-btn {
   width: 100%;
 }
