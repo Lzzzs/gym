@@ -1,5 +1,5 @@
 <template>
-  <admin-page-layout title="教练信息管理">
+  <admin-page-layout title="教练信息管理（回复留言）">
     <el-table :data="tableData" style="width: 100%" size="large" border>
       <el-table-column prop="name" label="姓名" width="120" />
       <el-table-column prop="phone" label="手机号码" width="120" />

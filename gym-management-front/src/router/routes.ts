@@ -83,6 +83,7 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  // vue-router
   {
     path: '/',
     component: () => import('@/pages/user/index.vue'),
