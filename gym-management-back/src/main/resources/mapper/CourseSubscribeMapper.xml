@@ -6,15 +6,16 @@
         <result property="subscribeTime" column="subscribe_time"/>
         <association javaType="top.lzzzs.entity.Users" property="user">
             <result property="username" column="username"/>
+            <result property="phone" column="phone"/>
+            <result property="address" column="address"/>
         </association>
         <association javaType="top.lzzzs.entity.Course" property="course">
             <result property="img" column="img"/>
-            <result property="detailText" column="detail_text"/>
             <result property="name" column="name"/>
         </association>
     </resultMap>
     <select id="getAllCourseSubscribe" resultMap="CourseSubscribeMap">
-        select u.username, cb.id, cb.subscribe_time, cb.img, cb.detail_text, cb.name
+        select u.username, u.phone, u.address, cb.id, cb.subscribe_time, cb.img, cb.name
         from users u
                  right join (select cs.id, cs.subscribe_time, c.img, c.detail_text, c.name, cs.user_id
                              from course_subscribe cs

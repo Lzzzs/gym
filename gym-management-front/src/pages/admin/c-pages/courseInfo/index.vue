@@ -3,7 +3,8 @@
     <el-table :data="tableData" style="width: 100%" size="large" border>
       <el-table-column prop="username" label="用户名" />
       <el-table-column prop="name" label="课程名" />
-      <el-table-column prop="detailText" label="课程详情" />
+      <el-table-column prop="phone" label="手机号" />
+      <el-table-column prop="address" label="地址" />
       <el-table-column label="课程图">
         <template #default="scope">
           <div class="flex items-center">
@@ -35,7 +36,12 @@ import {
 } from '@/network/user/index';
 import dayjs from 'dayjs';
 
-type TTable = ICourseInfoRecords & { username: string; subscribeTime: string };
+type TTable = ICourseInfoRecords & {
+  username: string;
+  subscribeTime: string;
+  phone: string;
+  address: string;
+};
 const tableData: TTable[] = reactive([]);
 
 getData();
@@ -69,7 +75,8 @@ function getData() {
       tableData.push({
         name: item.course.name,
         username: item.user.username,
-        detailText: item.course.detailText,
+        phone: item.user.phone,
+        address: item.user.address,
         img: item.course.img,
         subscribeTime: item.subscribeTime,
         id: item.id,

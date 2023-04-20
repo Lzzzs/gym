@@ -1,5 +1,5 @@
 const baseUrl = '/src/assets/videos';
-
+// 视频对应路径
 export const bei = [
   `${baseUrl}/bei/one.mp4`,
   `${baseUrl}/bei/two.mp4`,

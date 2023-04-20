@@ -24,7 +24,7 @@ export interface ICourseInfoRes {
 export interface ICourseInfoRecords {
   id: number;
   img: string;
-  detailText: string;
+  detailText?: string;
   name: string;
 }
 

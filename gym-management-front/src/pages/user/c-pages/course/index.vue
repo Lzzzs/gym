@@ -80,8 +80,8 @@ function fillCardInfo(records: ICourseInfoRecords[]) {
       id: item.id,
       imgUrl: item.img,
       detail: {
-        imgs: [item.detailText],
-        text: ""
+        imgs: [item.detailText!],
+        text: '',
       },
     };
 
